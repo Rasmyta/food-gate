@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class CategorySeeder extends Seeder
 {
-    private $categorys = [
+    private $categories = [
         'Argentinian', 'Asian', 'BBQ', 'Breakfast', 'Burgers', 'Burritos',
         'Cakes', 'Chicken', 'Chinese', 'Curry', 'Desserts', 'Fast Food',
         'Ice Cream', 'Indian', 'Italian', 'Kebabs', 'Mediterranean', 'Mexican',
@@ -23,9 +23,9 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < sizeof($this->categorys); $i++) {
+        for ($i = 0; $i < sizeof($this->categories); $i++) {
             DB::table('categories')->insert([
-                'name' => $this->categorys[$i],
+                'name' => $this->categories[$i],
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);

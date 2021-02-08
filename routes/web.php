@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard/intranet', function () {
-    return view('dashboard');
-});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('client.dashboard');
 })->name('dashboard');
+
+// Route::group(['middleware' => 'auth'], function () {
+//     Route::group(['middleware' => 'role:client'], function () {
+//         Route::resource('dashboard', ClientController::class);
+//     });
+// });
+
+Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    });
+});
