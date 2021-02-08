@@ -8,8 +8,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    <link rel="stylesheet" href="{{ URL::asset('css/all.min.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -17,6 +16,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/sb-admin-2.css') }}">
 
     @livewireStyles
@@ -26,7 +26,6 @@
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -35,25 +34,12 @@
             {{ $sidebar_menu }}
         @endisset
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 @livewire('navigation-menu')
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div> --}}
-
                     <!-- Page Heading -->
                     @if (isset($header))
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -66,12 +52,7 @@
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -79,11 +60,7 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
 </div>
 <!-- End of Page Wrapper -->
 
@@ -91,10 +68,6 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
-@stack('modals')
-
-@livewireScripts
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{ URL::asset('jquery/jquery.min.js') }}"></script>
@@ -109,6 +82,12 @@
 <!-- Page level plugins -->
 
 <!-- Page level custom scripts -->
+
+
+
+@stack('modals')
+
+@livewireScripts
 
 </body>
 
