@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
+    private $prefix = 'intranet.restaurants.';
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,9 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        //
+        $restaurants = Restaurant::orderBy('name')->paginate(10);
+        // $restaurants = Restaurant::all();
+        return view($this->prefix . 'index', ['restaurants' => $restaurants]);
     }
 
     /**
@@ -24,7 +27,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->prefix . 'create')->with('title', 'New restaurant');
     }
 
     /**
@@ -35,7 +38,28 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email:rfc,filter',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $restaurant = new Restaurant;
+
+        $restaurant->name = $request->name;
+        $restaurant->address = $request->address;
+        $restaurant->city = $request->city;
+        $restaurant->phone = $request->phone;
+        $restaurant->email = $request->email;
+        $restaurant->latitude = $request->latitude;
+        $restaurant->longitude = $request->longitude;
+        $restaurant->save();
+
+        return redirect()->action([RestaurantController::class, 'show'], $restaurant);
     }
 
     /**
@@ -46,7 +70,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        //
+        return view($this->prefix . 'show', ['restaurant' => $restaurant]);
     }
 
     /**
@@ -57,7 +81,9 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        //
+        return view($this->prefix . 'edit')
+            ->with('title', 'Edit restaurant')
+            ->with('restaurant', $restaurant);
     }
 
     /**
@@ -69,7 +95,26 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, Restaurant $restaurant)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email:rfc,filter',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $restaurant->name = $request->name;
+        $restaurant->address = $request->address;
+        $restaurant->city = $request->city;
+        $restaurant->phone = $request->phone;
+        $restaurant->email = $request->email;
+        $restaurant->latitude = $request->latitude;
+        $restaurant->longitude = $request->longitude;
+        $restaurant->save();
+
+        return redirect()->action([RestaurantController::class, 'show'], $restaurant);
     }
 
     /**
@@ -80,6 +125,7 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        //
+        $restaurant->delete();
+        return redirect()->action([RestaurantController::class, 'index']);
     }
 }
