@@ -19,16 +19,16 @@
                 <div class="form-group">
                     <x-jet-label value="{{ __('Email') }}" />
 
-                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email"
-                                 name="email" :value="old('email')" required />
+                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
+                        :value="old('email')" required />
                     <x-jet-input-error for="email"></x-jet-input-error>
                 </div>
 
                 <div class="form-group">
                     <x-jet-label value="{{ __('Password') }}" />
 
-                    <x-jet-input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password"
-                                 name="password" required autocomplete="current-password" />
+                    <x-jet-input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                        type="password" name="password" required autocomplete="current-password" />
                     <x-jet-input-error for="password"></x-jet-input-error>
                 </div>
 

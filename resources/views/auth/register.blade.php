@@ -7,7 +7,7 @@
         <x-jet-validation-errors class="mb-4" />
 
         <div class="card-body">
-            <form method="POST" action="{{ route('register') }}" x-data="{role_id: 1}">
+            <form method="POST" action="{{ route('register') }}" x-data="{role_id: 2}">
                 @csrf
 
                 <div class="form-group">
@@ -75,9 +75,8 @@
                 <div class="form-group">
                     <x-jet-label for="role_id" value="{{ __('Register as:') }}" />
                     <select name="role_id" x-model="role_id" class="form-control">
-                        <option value="1">Client</option>
-                        <option value="2">Restaurant manager</option>
-                        <option value="3">Administrator</option>
+                        <option value="2">Client</option>
+                        <option value="3">Restaurant manager</option>
                         <option value="4">Delivery man</option>
                     </select>
                 </div>

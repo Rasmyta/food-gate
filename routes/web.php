@@ -19,23 +19,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('client.dashboard');
-})->name('dashboard');
-
-Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    });
-
-    Route::get('restaurants/{restaurant}/delete', [RestaurantController::class, 'destroy']);
-    Route::resource('restaurants', RestaurantController::class);
+// CLIENT routes
+Route::middleware(['auth:sanctum', 'verified', 'role:client'])->group(function () {
+    Route::view('/dashboard', 'client.dashboard');
 });
 
+// INTRANET routes
+Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
 
+    // Routes for ALL intranet members
+    Route::group(['middleware' => 'intranetRoles'], function () {
+        Route::view('/dashboard', 'dashboard');
+    });
 
-// Route::group(['middleware' => 'auth'], function () {
-//     Route::group(['middleware' => 'role:client'], function () {
-//         Route::resource('dashboard', ClientController::class);
-//     });
-// });
+    Route::group(['middleware' => 'role:deliveryman'], function () {
+        Route::get('deliverymen', function () {
+            return view('intranet.deliverymen.index');
+        });
+    });
+
+    Route::group(['middleware' => 'role:rmanager'], function () {
+        Route::get('restaurants/{restaurant}/delete', [RestaurantController::class, 'destroy']);
+        Route::resource('restaurants', RestaurantController::class);
+    });
+});
