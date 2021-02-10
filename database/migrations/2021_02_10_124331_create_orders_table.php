@@ -15,9 +15,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained('clients')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('restaurant_id')->constrained('restaurants')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('plate_id')->constrained('plates')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('dish_id')->constrained('dishes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('deliveryman_id')->constrained('deliverymen')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('state');
             $table->timestamps();
