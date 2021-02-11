@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Models\Restaurant;
 
 class User extends Authenticatable
 {
@@ -69,5 +70,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function restaurante()
+    {
+        return $this->hasOne(Restaurant::class);
     }
 }
