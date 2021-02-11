@@ -7,6 +7,11 @@
 
     <!-- Content Row 1 -->
     <div class="row">
+
+        <a href="/intranet/restaurants/create">
+            <button class="btn btn-primary">Crear tu restaurante</button>
+        </a>
+
         <table class="table table-striped table-bordered table-sm" width="100%">
             <tr>
                 <th>Name</th>
@@ -38,9 +43,11 @@
 
         </table>
 
-        <div class="mx-auto">
-            <div>{{ $restaurants->links() }}</div>
-        </div>
+        {{-- @if ($restaurants->links())
+            <div class="mx-auto">
+                <div>{{ $restaurants->links() }}</div>
+            </div>
+        @endif --}}
 
     </div>
 

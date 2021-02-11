@@ -18,8 +18,7 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        $id = Auth::id();
-        $user = User::find($id);
+        $user = Auth::user();
 
         if ($user->role->name != 'Administrator') {
             if ($role == 'client' && $user->role->name != 'Client') {

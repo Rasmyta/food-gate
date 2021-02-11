@@ -18,9 +18,7 @@ class CheckIntranetRoles
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = Auth::id();
-
-        if (User::find($id)->role->name != "Client") {
+        if (Auth::user()->role->name != "Client") {
             return $next($request);
         }
 

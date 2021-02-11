@@ -20,8 +20,8 @@ Route::get('/', function () {
 });
 
 // CLIENT routes
-Route::middleware(['auth:sanctum', 'verified', 'role:client'])->group(function () {
-    Route::view('/dashboard', 'client.dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::view('/dashboard', 'client.dashboard')->name('dashboard');
 });
 
 // INTRANET routes
@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
 
     // Routes for ALL intranet members
     Route::group(['middleware' => 'intranetRoles'], function () {
-        Route::view('/dashboard', 'dashboard');
+        Route::view('/dashboard', 'dashboard')->name('intranet');
     });
 
     Route::group(['middleware' => 'role:deliveryman'], function () {
