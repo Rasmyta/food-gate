@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 // CLIENT routes
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::view('/dashboard', 'client.dashboard')->name('dashboard');
+    Route::view('/main', 'client.main')->name('main');
 });
 
 // INTRANET routes
@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
 
     // Routes for ALL intranet members
     Route::group(['middleware' => 'intranetRoles'], function () {
-        Route::view('/dashboard', 'dashboard')->name('intranet');
+        Route::view('/dashboard', 'intranet.dashboard')->name('intranet');
     });
 
     Route::group(['middleware' => 'role:deliveryman'], function () {

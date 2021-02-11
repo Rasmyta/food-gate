@@ -27,7 +27,17 @@
 
 <body class="font-sans antialiased bg-light">
     <x-jet-banner />
-    @livewire('navigation-menu')
+    {{-- @livewire('navigation-menu') --}}
+
+    <x-navigation-menu>
+        <x-slot name="logo"></x-slot>
+        <x-slot name="leftSideNavbar">
+            @include('components.left-side-navbar')
+        </x-slot>
+        <x-slot name="rightSideNavbar">
+            @include('components.right-side-navbar')
+        </x-slot>
+    </x-navigation-menu>
 
     <!-- Page Heading -->
     <header class="d-flex py-3 bg-white shadow-sm border-bottom">

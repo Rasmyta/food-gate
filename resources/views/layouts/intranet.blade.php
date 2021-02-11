@@ -30,13 +30,18 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('sidebar-menu')
+        @include('components.sidebar-menu')
 
 
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <!-- Topbar -->
-                @livewire('navigation-menu')
+                <x-navigation-menu>
+                    <x-slot name="rightSideNavbar">
+                        @include('components.right-side-navbar')
+                    </x-slot>
+                </x-navigation-menu>
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->

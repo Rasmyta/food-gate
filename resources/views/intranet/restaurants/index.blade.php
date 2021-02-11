@@ -8,9 +8,14 @@
     <!-- Content Row 1 -->
     <div class="row">
 
-        <a href="/intranet/restaurants/create">
-            <button class="btn btn-primary">Crear tu restaurante</button>
-        </a>
+        <div class="d-flex flex-row my-3 justify-content-between align-items-center">
+            <div>Search</div>
+            <div>
+                <a href="/intranet/restaurants/create">
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
+                </a>
+            </div>
+        </div>
 
         <table class="table table-striped table-bordered table-sm" width="100%">
             <tr>
