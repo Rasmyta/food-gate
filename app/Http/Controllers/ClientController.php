@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    private $prefix = 'intranet.clients.';
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::getClients();
+        return view($this->prefix . 'index', ['clients' => $clients]);
     }
 
     /**

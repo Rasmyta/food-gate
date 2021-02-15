@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    private $prefix = 'intranet.orders.';
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        // $this->authorize('view', Order::class);
+        $orders = Order::all();
+        return view($this->prefix . 'index', ['orders' => $orders]);
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +19,7 @@ class RestaurantController extends Controller
         if (Auth::user()->role->name == "Administrator") {
             $restaurants = Restaurant::paginate(10);
         } else {
-            $restaurants = Restaurant::where('user_id', '=', Auth::id())->get();
+            $restaurants = Restaurant::where('user_id', '=', Auth::id())->paginate(10);
         }
 
         return view($this->prefix . 'index', ['restaurants' => $restaurants]);
@@ -33,6 +32,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Restaurant::class);
         return view($this->prefix . 'create');
     }
 
@@ -44,6 +44,7 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Restaurant::class);
         $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -77,7 +78,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        $this->authorize('show', $restaurant);
+        $this->authorize('view', $restaurant);
         return view($this->prefix . 'show', ['restaurant' => $restaurant]);
     }
 
@@ -89,7 +90,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        $this->authorize('edit', $restaurant);
+        $this->authorize('update', $restaurant);
         return view($this->prefix . 'edit', ['restaurant' => $restaurant]);
     }
 

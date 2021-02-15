@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Restaurant;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RestaurantPolicy
+class OrderPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,16 @@ class RestaurantPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function view(User $user, Restaurant $restaurant)
+    public function view(User $user, Order $order)
     {
-        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator';
+        $client = $user->id === $order->client_id;
+        $deliveryman = $user->id === $order->deliveryman_id;
+        $manager = $user->id === $user->getRestaurant->user_id;
+
+        return  $client || $deliveryman || $manager || $user->role->name == 'Administrator';
     }
 
     /**
@@ -41,54 +45,54 @@ class RestaurantPolicy
      */
     public function create(User $user)
     {
-        return $user->role->name === 'Restaurant_manager';
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function update(User $user, Restaurant $restaurant)
+    public function update(User $user, Order $order)
     {
-        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator';
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function delete(User $user, Restaurant $restaurant)
+    public function delete(User $user, Order $order)
     {
-        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator';
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function restore(User $user, Restaurant $restaurant)
+    public function restore(User $user, Order $order)
     {
-        return $user->role->name == 'Administrator';
+        //
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function forceDelete(User $user, Restaurant $restaurant)
+    public function forceDelete(User $user, Order $order)
     {
-        return $user->role->name == 'Administrator';
+        //
     }
 }

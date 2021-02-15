@@ -35,61 +35,38 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRestaurants"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+        <a class="nav-link" href="/intranet/restaurants">
+            <i class="fas fa-landmark"></i>
             <span>Restaurants</span>
         </a>
-        <div id="collapseRestaurants" class="collapse" aria-labelledby="headingRestaurants"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/intranet/restaurants">Show all</a>
-                <a class="collapse-item" href="/intranet/restaurants/create">Add new</a>
-            </div>
-        </div>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link" href="/intranet/orders">
             <i class="fas fa-fw fa-cog"></i>
             <span>Orders</span>
         </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
-            aria-expanded="true" aria-controls="">
+        <a class="nav-link" href="/intranet/categories">
             <i class="fas fa-fw fa-cog"></i>
             <span>Categories</span>
         </a>
-        <div id="collapseCategories" class="collapse" aria-labelledby="headingCategories"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Show all</a>
-                <a class="collapse-item" href="#">Add new</a>
-            </div>
-        </div>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link" href="/intranet/clients">
             <i class="fas fa-fw fa-cog"></i>
             <span>Clients</span>
         </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDelivery"
-            aria-expanded="true" aria-controls="">
+        <a class="nav-link" href="/intranet/deliverymen">
             <i class="fas fa-fw fa-cog"></i>
             <span>Delivery men</span>
         </a>
-        <div id="collapseDelivery" class="collapse" aria-labelledby="headingDelivery" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Show all</a>
-                <a class="collapse-item" href="#">Add new</a>
-            </div>
-        </div>
     </li>
 
     <!-- Divider -->

@@ -6,6 +6,10 @@
     </x-slot>
 
     <!-- Content Row 1 -->
-
+    <ul>
+        @foreach ($deliverymen as $deliveryman)
+            <li>{{ $deliveryman->name }} {{ $deliveryman->surname }}</li>
+        @endforeach
+    </ul>
 
 </x-intranet-layout>

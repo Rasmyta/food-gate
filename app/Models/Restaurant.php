@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Dish;
 
 class Restaurant extends Model
 {
@@ -13,4 +14,9 @@ class Restaurant extends Model
     protected $fillable = [
         'name', 'address', 'city', 'phone', 'email', 'latitude', 'longitude'
     ];
+
+    public function getDishes()
+    {
+        return $this->hasMany(Dish::class);
+    }
 }

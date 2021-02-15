@@ -39,7 +39,6 @@
                         </tbody>
                     </table>
                     <div class="form-group">
-                        <a class="btn btn-secondary" href="/intranet/restaurants">Return</a>
                         <a class="btn btn-danger" href="/intranet/restaurants/{{ $restaurant->id }}/delete">Delete</a>
                         <a class="btn btn-warning" href="/intranet/restaurants/{{ $restaurant->id }}/edit">Edit</a>
                     </div>

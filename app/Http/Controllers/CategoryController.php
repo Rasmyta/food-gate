@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private $prefix = 'intranet.categories.';
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::paginate(10);
+        return view($this->prefix . 'index', ['categories' => $categories]);
     }
 
     /**

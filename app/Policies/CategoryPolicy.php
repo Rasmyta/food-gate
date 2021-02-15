@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Restaurant;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RestaurantPolicy
+class CategoryPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class RestaurantPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role->name === 'Restaurant_manager' || $user->role->name == 'Administrator';
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function view(User $user, Restaurant $restaurant)
+    public function view(User $user, Category $category)
     {
-        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator';
+        return $user->role->name === 'Restaurant_manager' || $user->role->name == 'Administrator';
     }
 
     /**
@@ -41,41 +41,41 @@ class RestaurantPolicy
      */
     public function create(User $user)
     {
-        return $user->role->name === 'Restaurant_manager';
+        return $user->role->name === 'Restaurant_manager' || $user->role->name == 'Administrator';
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function update(User $user, Restaurant $restaurant)
+    public function update(User $user, Category $category)
     {
-        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator';
+        return $user->role->name == 'Administrator';
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function delete(User $user, Restaurant $restaurant)
+    public function delete(User $user, Category $category)
     {
-        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator';
+        return $user->role->name == 'Administrator';
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function restore(User $user, Restaurant $restaurant)
+    public function restore(User $user, Category $category)
     {
         return $user->role->name == 'Administrator';
     }
@@ -84,10 +84,10 @@ class RestaurantPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Restaurant  $restaurant
+     * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function forceDelete(User $user, Restaurant $restaurant)
+    public function forceDelete(User $user, Category $category)
     {
         return $user->role->name == 'Administrator';
     }

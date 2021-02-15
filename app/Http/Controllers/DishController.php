@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Deliveryman;
+use App\Models\Dish;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class DeliverymanController extends Controller
+class DishController extends Controller
 {
-    private $prefix = 'intranet.deliverymen.';
+    private $prefix = 'intranet.dishes.';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Restaurant $restaurant)
     {
-        $deliverymen = Deliveryman::getDeliverymen();
-        return view($this->prefix . 'index', ['deliverymen' => $deliverymen]);
+        $dishes = Dish::where('restaurant_id', '=', $restaurant->id)->get();
+        return view($this->prefix . 'index', ['dishes' => $dishes,])->with('restaurant', $restaurant);
     }
 
     /**
@@ -26,7 +28,7 @@ class DeliverymanController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Dish::class);
     }
 
     /**
@@ -43,10 +45,10 @@ class DeliverymanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Deliveryman  $deliveryman
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function show(Deliveryman $deliveryman)
+    public function show(Dish $dish)
     {
         //
     }
@@ -54,10 +56,10 @@ class DeliverymanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Deliveryman  $deliveryman
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function edit(Deliveryman $deliveryman)
+    public function edit(Dish $dish)
     {
         //
     }
@@ -66,10 +68,10 @@ class DeliverymanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Deliveryman  $deliveryman
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deliveryman $deliveryman)
+    public function update(Request $request, Dish $dish)
     {
         //
     }
@@ -77,10 +79,10 @@ class DeliverymanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Deliveryman  $deliveryman
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Deliveryman $deliveryman)
+    public function destroy(Dish $dish)
     {
         //
     }

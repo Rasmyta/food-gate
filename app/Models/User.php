@@ -72,7 +72,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function restaurante()
+    public function getRestaurant()
     {
         return $this->hasOne(Restaurant::class);
     }

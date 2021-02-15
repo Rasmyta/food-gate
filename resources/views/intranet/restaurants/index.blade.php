@@ -6,15 +6,17 @@
     </x-slot>
 
     <!-- Content Row 1 -->
-    <div class="row">
+    <div class="">
 
         <div class="d-flex flex-row my-3 justify-content-between align-items-center">
             <div>Search</div>
-            <div>
-                <a href="/intranet/restaurants/create">
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
-                </a>
-            </div>
+            @can('create', \App\Models\Restaurant::class)
+                <div>
+                    <a href="/intranet/restaurants/create">
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
+                    </a>
+                </div>
+            @endcan
         </div>
 
         <table class="table table-striped table-bordered table-sm" width="100%">
@@ -38,6 +40,7 @@
                         <a href="/intranet/restaurants/{{ $restaurant->id }}/delete"><i class="fas fa-trash-alt"></i></a>
                         <a href="/intranet/restaurants/{{ $restaurant->id }}/edit"><i class="fas fa-edit"></i></a>
                         <a href="/intranet/restaurants/{{ $restaurant->id }}"><i class="fas fa-eye"></i></a>
+                        <a href="/intranet/dishes/{{ $restaurant->id }}"><i class="fas fa-clipboard-list"></i></a>
                     </td>
                 </tr>
             @empty
@@ -48,12 +51,12 @@
 
         </table>
 
-        {{-- @if ($restaurants->links())
-            <div class="mx-auto">
-                <div>{{ $restaurants->links() }}</div>
-            </div>
-        @endif --}}
+        <div class="mx-auto">
+            <div>{{ $restaurants->links() }}</div>
+        </div>
 
     </div>
+
+
 
 </x-intranet-layout>
