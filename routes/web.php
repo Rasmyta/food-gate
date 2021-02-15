@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Livewire\RestaurantComponent;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DeliverymanController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
