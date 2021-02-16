@@ -144,8 +144,6 @@ class RestaurantController extends Controller
 
     public function apiStore(Request $request)
     {
-        $this->authorize('create', Restaurant::class);
-
         $restaurant = new Restaurant;
         $restaurant->name = $request->name;
         $restaurant->address = $request->address;
