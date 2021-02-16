@@ -6,6 +6,8 @@ use App\Models\Dish;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
@@ -29,6 +31,7 @@ class DishController extends Controller
     public function create()
     {
         $this->authorize('create', Dish::class);
+        return view($this->prefix . 'create');
     }
 
     /**
@@ -39,7 +42,30 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Dish::class);
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+        ]);
+
+        $dish = new Dish;
+        $dish->category_id = $request->category;
+        $dish->restaurant_id = $request->restaurant_id;
+        $dish->name = $request->name;
+        $dish->description = $request->description;
+        $dish->price = $request->price;
+        $dish->save();
+
+        // If the photo is valid, it will be saved in storage/app/public/images/dishes
+        if ($request->file('photo_path')->isValid()) {
+            $name = 'dish_' . $dish->restaurant_id . '_' . $dish->category_id . '_' . $dish->id;
+            $path = $request->photo_path->storeAs('public/images/dishes', $name . '.' . $request->photo_path->extension());
+            $dish->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/dishes/photoname
+            $dish->save();
+        }
+
+        return redirect()->action([DishController::class, 'index', $request->restaurant_id]);
     }
 
     /**
@@ -50,7 +76,7 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
-        //
+        return view($this->prefix . 'show', ['dish' => $dish]);
     }
 
     /**

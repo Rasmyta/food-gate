@@ -20,7 +20,7 @@ class CreateDishesTable extends Migration
             $table->string('name', 50);
             $table->string('description');
             $table->double('price');
-            $table->binary('photo_path');
+            $table->string('photo_path')->nullable();
             $table->timestamps();
         });
     }

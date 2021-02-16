@@ -10,8 +10,7 @@ use App\Models\Restaurant;
 class RestaurantComponent extends Component
 {
     use WithPagination;
-    protected $paginationTheme = 'bootstrap';
-    // private $prefix = 'intranet.restaurants.';
+    private $prefix = 'intranet.restaurants.';
 
     public function render()
     {
@@ -21,6 +20,6 @@ class RestaurantComponent extends Component
         //     $restaurants = Restaurant::where('user_id', '=', Auth::id())->paginate(10);
         // }
         $restaurants = Restaurant::paginate(10);
-        return view('livewire.restaurant-component', ['restaurants' => $restaurants]);
+        return view('intranet.restaurants.index', ['restaurants' => $restaurants]);
     }
 }

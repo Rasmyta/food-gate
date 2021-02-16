@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\RestaurantResource;
 
 class RestaurantController extends Controller
 {
     private $prefix = 'intranet.restaurants.';
+
     /**
      * Display a listing of the resource.
      *
@@ -137,5 +139,38 @@ class RestaurantController extends Controller
         $this->authorize('delete', $restaurant);
         $restaurant->delete();
         return redirect()->action([RestaurantController::class, 'index']);
+    }
+
+
+    public function apiStore(Request $request)
+    {
+        $this->authorize('create', Restaurant::class);
+
+        $restaurant = new Restaurant;
+        $restaurant->name = $request->name;
+        $restaurant->address = $request->address;
+        $restaurant->city = $request->city;
+        $restaurant->phone = $request->phone;
+        $restaurant->email = $request->email;
+        $restaurant->latitude = $request->latitude;
+        $restaurant->longitude = $request->longitude;
+        $restaurant->user_id = Auth::id();
+        $restaurant->save();
+
+        return response([
+            'restaurant' => new RestaurantResource($restaurant),
+            'message' => 'Created succesfully'
+        ], 201);
+    }
+
+    public function apiDelete(Restaurant $restaurant)
+    {
+        $this->authorize('delete', $restaurant);
+
+        $restaurant->delete();
+
+        return response([
+            'message' => 'Deleted succesfully'
+        ], 200);
     }
 }
