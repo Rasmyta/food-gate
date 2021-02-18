@@ -18,8 +18,8 @@ class CreateDishesTable extends Migration
             $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('restaurant_id')->constrained('restaurants')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name', 50);
-            $table->string('description');
             $table->double('price');
+            $table->string('description')->nullable();
             $table->string('photo_path')->nullable();
             $table->timestamps();
         });

@@ -32,7 +32,11 @@
 
             @forelse ($dishes as $dish)
                 <tr>
-                    <td><img src="{{ url($dish->photo_path) }}" alt="{{ $dish->name }}" style="width: 100px" /></td>
+                    <td>
+                        @isset($dish->photo_path)
+                            <img src="{{ url($dish->photo_path) }}" alt="{{ $dish->name }}" style="width: 100px" />
+                        @endisset
+                    </td>
                     <td>{{ $dish->name }}</td>
                     <td>{{ $dish->getCategory->name }}</td>
                     <td>{{ $dish->price }} &euro;</td>
@@ -44,14 +48,19 @@
                 </tr>
             @empty
                 <tr>
-                    <td>No dishes found.</td>
+                    <td colspan="6">No dishes found.</td>
                 </tr>
             @endforelse
 
         </table>
 
+        <div class="mx-auto">
+            {{-- <div>{{ $dishes->links() }}</div> --}}
+        </div>
+
     </div>
 
+    <!-- Create dish modal -->
     <div class="modal fade" id="createDish" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -106,5 +115,8 @@
             </form>
         </div>
     </div>
+
+    <!-- Edit dish modal -->
+
 
 </x-intranet-layout>

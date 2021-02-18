@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\RestaurantComponent;
 use App\Models\Dish;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -19,8 +20,9 @@ class DishController extends Controller
      */
     public function index(Restaurant $restaurant)
     {
-        $dishes = Dish::where('restaurant_id', '=', $restaurant->id)->get();
-        return view($this->prefix . 'index', ['dishes' => $dishes,])->with('restaurant', $restaurant);
+        $dishes = $restaurant->getDishes;
+        // $dishes = Dish::where('restaurant_id', '=', $restaurant->id)->paginate(3);
+        return view($this->prefix . 'index', ['dishes' => $dishes, 'restaurant' => $restaurant]);
     }
 
     /**
@@ -58,14 +60,14 @@ class DishController extends Controller
         $dish->save();
 
         // If the photo is valid, it will be saved in storage/app/public/images/dishes
-        if ($request->file('photo_path')->isValid()) {
+        if ($request->hasFile('photo') && $request->file('photo_path')->isValid()) {
             $name = 'dish_' . $dish->restaurant_id . '_' . $dish->category_id . '_' . $dish->id;
             $path = $request->photo_path->storeAs('public/images/dishes', $name . '.' . $request->photo_path->extension());
             $dish->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/dishes/photoname
             $dish->save();
         }
 
-        return redirect()->action([DishController::class, 'index', $request->restaurant_id]);
+        return redirect()->route('dishes', $dish->getRestaurant);
     }
 
     /**
@@ -87,7 +89,9 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        //
+        // $this->authorize('update', $dish);
+
+        return view($this->prefix . 'edit', ['dish' => $dish]);
     }
 
     /**
@@ -99,7 +103,30 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
-        //
+        // $this->authorize('update', Dish::class);
+
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+        ]);
+
+        $dish->category_id = $request->category;
+        $dish->restaurant_id = $request->restaurant_id;
+        $dish->name = $request->name;
+        $dish->description = $request->description;
+        $dish->price = $request->price;
+        $dish->save();
+
+        // If the photo is valid, it will be saved in storage/app/public/images/dishes
+        if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
+            $name = 'dish_' . $dish->restaurant_id . '_' . $dish->category_id . '_' . $dish->id;
+            $path = $request->photo_path->storeAs('public/images/dishes', $name . '.' . $request->photo_path->extension());
+            $dish->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/dishes/photoname
+            $dish->save();
+        }
+
+        return redirect()->route('dishes', $dish->getRestaurant);
     }
 
     /**
@@ -110,6 +137,11 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        //
+        // $this->authorize('delete', $dish);
+
+        $photo_path = str_replace('storage', 'public', $dish->photo_path);
+        Storage::delete($photo_path);
+        $dish->delete();
+        return redirect()->route('dishes', $dish->getRestaurant);
     }
 }

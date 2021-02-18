@@ -48,10 +48,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
     });
 
     Route::group(['middleware' => 'role:rmanager'], function () {
+        //Restaurants
         Route::get('restaurants/{restaurant}/delete', [RestaurantController::class, 'destroy']);
-        Route::get('dishes/{restaurant}', [DishController::class, 'index']);
         Route::resource('restaurants', RestaurantController::class);
+
+        //Dishes
+        Route::get('dishes/{restaurant}', [DishController::class, 'index'])->name('dishes');
+        Route::get('dishes/{dish}/delete', [DishController::class, 'destroy']);
         Route::resource('dishes', DishController::class);
+
+        //Categories
         Route::resource('categories', CategoryController::class);
     });
 });

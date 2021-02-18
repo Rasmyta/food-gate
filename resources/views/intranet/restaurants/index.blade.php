@@ -45,7 +45,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td>No restaurants found.</td>
+                    <td colspan="6">No restaurants found.</td>
                 </tr>
             @endforelse
 
