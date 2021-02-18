@@ -72,15 +72,6 @@
                         autocomplete="new-password" />
                 </div>
 
-                <div class="form-group">
-                    <x-jet-label for="role_id" value="{{ __('Register as:') }}" />
-                    <select name="role_id" x-model="role_id" class="form-control">
-                        <option value="2">Client</option>
-                        <option value="3">Restaurant manager</option>
-                        <option value="4">Delivery man</option>
-                    </select>
-                </div>
-
                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                     <div class="form-group px-3">
                         <x-jet-label for="terms">
