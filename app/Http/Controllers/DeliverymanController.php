@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deliveryman;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DeliverymanController extends Controller
@@ -15,8 +16,7 @@ class DeliverymanController extends Controller
      */
     public function index()
     {
-        $deliverymen = Deliveryman::getDeliverymen();
-        return view($this->prefix . 'index', ['deliverymen' => $deliverymen]);
+        return view($this->prefix . 'index', ['deliverymen' => User::getDeliverymen()]);
     }
 
     /**
@@ -46,7 +46,7 @@ class DeliverymanController extends Controller
      * @param  \App\Models\Deliveryman  $deliveryman
      * @return \Illuminate\Http\Response
      */
-    public function show(Deliveryman $deliveryman)
+    public function show(User $deliveryman)
     {
         //
     }
@@ -57,7 +57,7 @@ class DeliverymanController extends Controller
      * @param  \App\Models\Deliveryman  $deliveryman
      * @return \Illuminate\Http\Response
      */
-    public function edit(Deliveryman $deliveryman)
+    public function edit(User $deliveryman)
     {
         //
     }
@@ -69,7 +69,7 @@ class DeliverymanController extends Controller
      * @param  \App\Models\Deliveryman  $deliveryman
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deliveryman $deliveryman)
+    public function update(Request $request, User $deliveryman)
     {
         //
     }
@@ -80,8 +80,10 @@ class DeliverymanController extends Controller
      * @param  \App\Models\Deliveryman  $deliveryman
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Deliveryman $deliveryman)
+    public function destroy(User $deliveryman)
     {
-        //
+        // $this->authorize('delete', $restaurant);
+        $deliveryman->delete();
+        return redirect()->action([DeliverymanController::class, 'index']);
     }
 }

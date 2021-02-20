@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -15,8 +16,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::getClients();
-        return view($this->prefix . 'index', ['clients' => $clients]);
+        return view($this->prefix . 'index', ['clients' => User::getClients()]);
     }
 
     /**
@@ -80,8 +80,10 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(User $client)
     {
-        //
+        // $this->authorize('delete', $client);
+        $client->delete();
+        return redirect()->action([ClientController::class, 'index']);
     }
 }

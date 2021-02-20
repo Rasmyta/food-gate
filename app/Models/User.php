@@ -76,4 +76,22 @@ class User extends Authenticatable
     {
         return $this->hasOne(Restaurant::class);
     }
+
+    public static function getDeliverymen()
+    {
+        $deliverymen = User::whereHas('role', function ($q) {
+            $q->where('name', 'Deliveryman');
+        })->get();
+
+        return $deliverymen;
+    }
+
+    public static function getClients()
+    {
+        $clients = User::whereHas('role', function ($q) {
+            $q->where('name', 'Client');
+        })->get();
+
+        return $clients;
+    }
 }

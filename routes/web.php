@@ -40,7 +40,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
     });
 
     Route::group(['middleware' => 'role:admin'], function () {
+        //Clients
+        Route::get('clients/{client}/delete', [ClientController::class, 'destroy']);
         Route::resource('clients', ClientController::class);
+
+        //Deliverymen
+        Route::get('deliverymen/{deliveryman}/delete', [DeliverymanController::class, 'destroy']);
         Route::resource('deliverymen', DeliverymanController::class);
     });
 
@@ -58,6 +63,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
         Route::resource('dishes', DishController::class);
 
         //Categories
+        Route::get('categories/{category}/delete', [CategoryController::class, 'destroy']);
         Route::resource('categories', CategoryController::class);
     });
 });
