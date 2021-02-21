@@ -53,6 +53,9 @@
         {{ $slot }}
     </main>
 
+    <!-- Site footer -->
+    @include('components.footer')
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ URL::asset('jquery/jquery.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.bundle.min.js') }}"></script>

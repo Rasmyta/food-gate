@@ -1,58 +1,61 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-guest-layout>
+    <div class="container-fluid m-0 p-0 welcome-container">
+        <header class="d-flex px-4 justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand" href="/">
+                    <x-jet-application-mark />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            @if (Route::has('login'))
+                <div class="">
+                    @auth
+                        <a href="{{ url('main') }}" class="text-muted">Main</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-muted">Login</a>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>Food gate</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/sb-admin-2.css') }}">
-
-    <style>
-        body {
-            font-family: 'Nunito';
-        }
-
-    </style>
-</head>
-
-<body class="bg-light">
-    <div class="container-fluid fixed-top p-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-end">
-                @if (Route::has('login'))
-                    <div class="">
-                        @auth
-                            <a href="{{ url('main') }}" class="text-muted">Main</a>
-                        @else
-                            <a href="{{ route('login') }}" class="text-muted">Login</a>
-
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 text-muted">Register</a>
-                            @endif
-                    @endif
-                </div>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-muted">Register</a>
+                        @endif
                 @endif
-            </div>
         </div>
-        </div>
+        @endif
+        </header>
 
-        <div class="container-fluid my-5 pt-4">
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                    <h1>Welcome to Food Gate!</h1>
+
+        <section>
+            <div class="row1 d-flex justify-content-center align-items-center">
+                <div class="p-5">
+                    <h1 class="">Restaurants at home</h1>
+                    <h5>Get delicious meals delivered to your doorstep.</h5>
                 </div>
             </div>
-        </div>
-    </body>
 
-    </html>
+            <div class="row2">
+                <h1 class="text-center m-5">How It Works</h1>
+                <div class="d-flex justify-content-around align-items-center">
+                    <div>
+                        <h3>Choose a restaurant</h3>
+                    </div>
+                    <div>
+                        <h3>Pick your meals</h3>
+                    </div>
+                    <div>
+                        <h3>Fast delivery</h3>
+                    </div>
+                    <div>
+                        <h3>Eat & Enjoy</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Site footer -->
+        @include('components.footer')
+
+        </div>
+    </x-guest-layout>

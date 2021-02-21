@@ -59,9 +59,10 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Desarrollado por Rasma Butkute 2021</span>
+                        <span>Copyright © 2021 All Rights Reserved by Rasma Butkute</span>
                     </div>
                 </div>
+
             </footer>
         </div>
     </div>
