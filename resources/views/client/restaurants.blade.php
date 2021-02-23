@@ -2,21 +2,21 @@
 
 
     <div class="container">
-        <h2>Popular dishes</h2>
+        <h2>Restaurants</h2>
 
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3">
-            @foreach ($dishes as $dish)
+            @foreach ($restaurants as $restaurant)
                 <div class="col my-4">
                     <div class="card h-100">
-                        @isset($dish->photo_path)
-                            <img src="{{ url($dish->photo_path) }}" alt="{{ $dish->name }}" class="card-img-top h-45" />
+                        @isset($restaurant->photo_path)
+                            <img src="{{ url($restaurant->photo_path) }}" alt="{{ $restaurant->name }}"
+                                class="card-img-top h-45" />
                         @endisset
                         <div class="card-body">
-                            <h5 class="card-title">{{ $dish->name }}</h5>
-                            <p class="card-text">{{ $dish->description }}</p>
+                            <h5 class="card-title">{{ $restaurant->name }}</h5>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Add to cart</small>
+                            <small class="text-muted"></small>
                         </div>
                     </div>
                 </div>

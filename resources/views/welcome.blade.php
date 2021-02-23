@@ -35,9 +35,9 @@
                 </div>
             </div>
 
-            <div class="row2">
+            <div class="row2 container">
                 <h1 class="text-center m-5">How It Works</h1>
-                <div class="d-flex justify-content-around align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h3>Choose a restaurant</h3>
                     </div>

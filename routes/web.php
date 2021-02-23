@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DeliverymanController;
 use App\Http\Controllers\DishController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 
@@ -27,7 +28,8 @@ Route::get('/', function () {
 
 // CLIENT routes
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::view('/main', 'client.main')->name('main');
+    Route::get('/main', [MainController::class, 'indexMain'])->name('main');
+    Route::get('/restaurants', [MainController::class, 'indexRestaurants'])->name('restaurants');
 });
 
 // INTRANET routes

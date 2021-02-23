@@ -27,7 +27,6 @@
 
 <body class="font-sans antialiased bg-light">
     <x-jet-banner />
-    {{-- @livewire('navigation-menu') --}}
 
     <x-navigation-menu>
         <x-slot name="logo"></x-slot>

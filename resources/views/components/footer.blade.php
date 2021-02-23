@@ -22,6 +22,7 @@
                 <h6>Quick Links</h6>
                 <ul class="footer-links">
                     <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
                     <li><a href="#">Contribute</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>

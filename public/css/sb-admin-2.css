@@ -11,6 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
+    --dark-green: #0f2f3a;
     --blue: #4e73df;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -18,6 +19,7 @@
     --red: #e74a3b;
     --orange: #fd7e14;
     --yellow: #f6c23e;
+    --vibrant-yellow: #f5df4d;
     --green: #1cc88a;
     --teal: #20c9a6;
     --cyan: #36b9cc;
@@ -116,7 +118,7 @@
 /* WELCOME */
 
 .welcome-container {
-    color: #0f2f3a;
+    color: var(--dark-green);
 }
 .row1 {
     height: 85vh;
@@ -261,9 +263,6 @@
 }
 .social-icons a.linkedin:hover {
     background-color: #007bb6;
-}
-.social-icons a.dribbble:hover {
-    background-color: #ea4c89;
 }
 @media (max-width: 767px) {
     .social-icons li.title {
