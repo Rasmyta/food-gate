@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRolesFieldsToUsersTable extends Migration
+class AddPhotoFieldToRestaurantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddRolesFieldsToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('role_id')->nullable()->constrained('roles');
+        Schema::table('restaurants', function (Blueprint $table) {
+            $table->string('photo_path')->nullable();
+            $table->string('logo_path')->nullable();
         });
     }
 
@@ -25,7 +26,7 @@ class AddRolesFieldsToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('restaurants', function (Blueprint $table) {
             //
         });
     }
