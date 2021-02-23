@@ -30,6 +30,9 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/main', [MainController::class, 'indexMain'])->name('main');
     Route::get('/restaurants', [MainController::class, 'indexRestaurants'])->name('restaurants');
+    Route::get('/restaurant/{id}', [MainController::class, 'showRestaurant']);
+    Route::get('/dishes/{id}', [MainController::class, 'indexDishes']);
+    Route::get('/dish/{id}', [MainController::class, 'showDish']);
 });
 
 // INTRANET routes

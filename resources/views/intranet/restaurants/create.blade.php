@@ -7,7 +7,7 @@
 
     <div class="row">
 
-        <form method="POST" action="/intranet/restaurants">
+        <form method="POST" action="/intranet/restaurants" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>
@@ -64,6 +64,10 @@
                 @error('longitude')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+            </div>
+            <div class="form-group">
+                <label for="photo_path">Photo</label>
+                <input type="file" name="photo_path" id="photo_path" class="form-control">
             </div>
 
             <a href="/intranet/restaurants/" class="btn btn-secondary">Cancel</a>

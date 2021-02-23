@@ -16,6 +16,15 @@
                 <div class="form-group">
                     <table class="table table-bordered table-striped">
                         <tbody>
+                            @isset($restaurant->photo_path)
+                                <tr>
+                                    <td colspan="2">
+                                        <img src="{{ url($restaurant->photo_path) }}" alt="{{ $restaurant->name }}"
+                                            class="card-img-top h-45" />
+                                    </td>
+                                </tr>
+                            @endisset
+
                             <tr>
                                 <th>Name</th>
                                 <td>{{ $restaurant->name }}</td>

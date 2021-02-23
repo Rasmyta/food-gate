@@ -13,7 +13,9 @@
                                 class="card-img-top h-45" />
                         @endisset
                         <div class="card-body">
-                            <h5 class="card-title">{{ $restaurant->name }}</h5>
+                            <a href="/restaurant/{{ $restaurant->id }}">
+                                <h5 class="card-title">{{ $restaurant->name }}</h5>
+                            </a>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted"></small>

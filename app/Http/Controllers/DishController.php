@@ -60,7 +60,7 @@ class DishController extends Controller
         $dish->save();
 
         // If the photo is valid, it will be saved in storage/app/public/images/dishes
-        if ($request->hasFile('photo') && $request->file('photo_path')->isValid()) {
+        if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
             $name = 'dish_' . $dish->restaurant_id . '_' . $dish->category_id . '_' . $dish->id;
             $path = $request->photo_path->storeAs('public/images/dishes', $name . '.' . $request->photo_path->extension());
             $dish->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/dishes/photoname

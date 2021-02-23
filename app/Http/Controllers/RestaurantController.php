@@ -69,6 +69,14 @@ class RestaurantController extends Controller
         $restaurant->user_id = Auth::id();
         $restaurant->save();
 
+        // If the photo is valid, it will be saved in storage/app/public/images/restaurants
+        if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
+            $name = 'restaurant_' . $restaurant->id;
+            $path = $request->photo_path->storeAs('public/images/restaurants', $name . '.' . $request->photo_path->extension());
+            $restaurant->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/restaurants/photoname
+            $restaurant->save();
+        }
+
         return redirect()->action([RestaurantController::class, 'show'], $restaurant);
     }
 
@@ -124,6 +132,15 @@ class RestaurantController extends Controller
         $restaurant->latitude = $request->latitude;
         $restaurant->longitude = $request->longitude;
         $restaurant->save();
+
+        // If the photo is valid, it will be saved in storage/app/public/images/restaurants
+        if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
+            echo "PHOTO valid";
+            $name = 'restaurant_' . $restaurant->id;
+            $path = $request->photo_path->storeAs('public/images/restaurants', $name . '.' . $request->photo_path->extension());
+            $restaurant->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/restaurants/photoname
+            $restaurant->save();
+        }
 
         return redirect()->action([RestaurantController::class, 'show'], $restaurant);
     }
