@@ -8,6 +8,7 @@ use App\Http\Controllers\DishController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\CartController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -28,11 +29,19 @@ Route::get('/', function () {
 
 // CLIENT routes
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/main', [MainController::class, 'indexMain'])->name('main');
-    Route::get('/restaurants', [MainController::class, 'indexRestaurants'])->name('restaurants');
-    Route::get('/restaurant/{id}', [MainController::class, 'showRestaurant']);
-    Route::get('/dishes/{id}', [MainController::class, 'indexDishes']);
-    Route::get('/dish/{id}', [MainController::class, 'showDish']);
+    Route::get('main', [MainController::class, 'indexMain'])->name('main');
+    Route::get('restaurants', [MainController::class, 'indexRestaurants'])->name('restaurants');
+    Route::get('restaurant/{id}', [MainController::class, 'showRestaurant']);
+    Route::get('dishes/{id}', [MainController::class, 'indexDishes']);
+    Route::get('dish/{id}', [MainController::class, 'showDish']);
+
+    //Cart routes
+    Route::get('cart/add/{id}', [CartController::class, 'add']);
+    Route::get('cart/checkout', [CartController::class, 'check']);
+    Route::delete('cart/delete', [CartController::class, 'delete']);
+
+    //Order routes
+    Route::resource('orders', OrderController::class);
 });
 
 // INTRANET routes

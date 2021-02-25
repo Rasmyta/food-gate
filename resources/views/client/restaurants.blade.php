@@ -1,9 +1,7 @@
 <x-app-layout>
 
-
-    <div class="container">
+    <div>
         <h2>Restaurants</h2>
-
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3">
             @foreach ($restaurants as $restaurant)
                 <div class="col my-4">
@@ -24,8 +22,6 @@
                 </div>
             @endforeach
         </div>
-
-
     </div>
 
 </x-app-layout>

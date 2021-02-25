@@ -1,7 +1,13 @@
 <x-app-layout>
 
-    <div class="container" style="height: 70vh">
+    <div class="container" style="min-height: 70vh">
         <h2 class="mb-4">{{ $dish->name }}</h2>
+
+        @if ($errors->any())
+            <p class='text-danger mb-3'>{{ $errors->first() }}</p>
+        @endif
+
+
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-3">
@@ -12,7 +18,7 @@
                 <div class="col-md-9">
                     <div class="card-body">
                         <p class="card-text">{{ $dish->description }}</p>
-                        <a href="#" class="card-text">Add to cart</a>
+                        <a href="/cart/add/{{ $dish->id }}" class="card-text">Add to cart</a>
                     </div>
                 </div>
             </div>

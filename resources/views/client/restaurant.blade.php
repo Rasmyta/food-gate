@@ -7,6 +7,11 @@
         </div>
 
         <h2 class="mb-4">Dishes</h2>
+
+        @if ($errors->any())
+            <p class='text-danger mb-3'>{{ $errors->first() }}</p>
+        @endif
+
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
             @foreach ($dishes as $dish)
                 <div class="col mb-4">
@@ -21,7 +26,7 @@
                             <span>{{ $dish->price }} &euro;</span>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="text-muted">Add to cart</a>
+                            <a href="/cart/add/{{ $dish->id }}" class="text-muted">Add to cart</a>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Dish;
 use App\Models\Order;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -38,7 +41,37 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $this->authorize('create', Order::class);
+
+        $cart = json_decode($request->cart);
+        $restaurant_id = '';
+
+        foreach ($cart as $item) {
+            $restaurant_id = Dish::findOrFail($item->id)->getRestaurant->id;
+        }
+
+        // if (User::getFreeDeliverymen()->first()) {
+        //     $deliverer = User::getFreeDeliverymen()->first();
+        //     $deliverer_id = $deliverer->id;
+        //     $deliverer->state = 'ocupied';
+        // }
+
+
+        $order = new Order;
+        $order->client_id = $request->client_id;
+        $order->restaurant_id = $restaurant_id;
+        $order->state = 'waiting';
+        $order->save();
+
+        //Saving the cart's items into pivot table 'dish_order'
+        foreach ($cart as $item) {
+            $order->getDishes()->attach($item->id, ['quantity' => $item->qty]);
+        }
+
+        //limpiar carrito
+        Cart::destroy();
+
+        return view('client.cart');
     }
 
     /**

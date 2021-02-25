@@ -1,10 +1,10 @@
 <x-app-layout>
 
 
-    <div class="container">
+    <div>
         <h2>Popular dishes</h2>
 
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
             @foreach ($dishes as $dish)
                 <div class="col my-4">
                     <div class="card h-100">
@@ -12,7 +12,9 @@
                             <img src="{{ url($dish->photo_path) }}" alt="{{ $dish->name }}" class="card-img-top h-45" />
                         @endisset
                         <div class="card-body">
-                            <h5 class="card-title">{{ $dish->name }}</h5>
+                            <a href="/dish/{{ $dish->id }}">
+                                <h5 class="card-title">{{ $dish->name }}</h5>
+                            </a>
                             <p class="card-text">{{ $dish->description }}</p>
                         </div>
                         <div class="card-footer">
