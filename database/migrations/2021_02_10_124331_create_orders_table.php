@@ -15,11 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained('users')->onUpdate('cascade');
-            $table->foreignId('restaurant_id')->constrained('restaurants')->onUpdate('cascade');
-            $table->foreignId('dish_id')->constrained('dishes')->onUpdate('cascade');
-            $table->foreignId('deliveryman_id')->constrained('users')->onUpdate('cascade');
-            $table->boolean('state');
+            $table->foreignId('client_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('restaurant_id')->constrained('restaurants')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('deliveryman_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('state');
             $table->timestamps();
         });
     }
