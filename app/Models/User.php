@@ -11,6 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
 use App\Models\Restaurant;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -72,9 +73,14 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function getRestaurant()
+    public function getRestaurants()
     {
-        return $this->hasOne(Restaurant::class);
+        return $this->hasMany(Restaurant::class);
+    }
+
+    public function getOrders()
+    {
+        return $this->hasMany(Order::class);
     }
 
     public static function getClients()

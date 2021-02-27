@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
     // Routes for ALL intranet members
     Route::group(['middleware' => 'intranetRoles'], function () {
         Route::view('/dashboard', 'intranet.dashboard')->name('intranet');
+        Route::get('orders/{restaurant}', [OrderController::class, 'indexByRestaurant']);
         Route::resource('orders', OrderController::class);
     });
 

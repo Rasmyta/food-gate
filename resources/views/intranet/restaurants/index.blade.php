@@ -19,35 +19,46 @@
             @endcan
         </div>
 
-        <table class="table table-striped table-bordered table-sm" width="100%">
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
+        <table class="table table-hover table-sm" width="100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
-            @forelse ($restaurants as $restaurant)
-                <tr>
-                    <td>{{ $restaurant->name }}</td>
-                    <td>{{ $restaurant->address }}</td>
-                    <td>{{ $restaurant->city }}</td>
-                    <td>{{ $restaurant->phone }}</td>
-                    <td>{{ $restaurant->email }}</td>
-                    <td>
-                        <a href="/intranet/restaurants/{{ $restaurant->id }}/delete"><i class="fas fa-trash-alt"></i></a>
-                        <a href="/intranet/restaurants/{{ $restaurant->id }}/edit"><i class="fas fa-edit"></i></a>
-                        <a href="/intranet/restaurants/{{ $restaurant->id }}"><i class="fas fa-eye"></i></a>
-                        <a href="/intranet/dishes/{{ $restaurant->id }}"><i class="fas fa-clipboard-list"></i></a>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6">No restaurants found.</td>
-                </tr>
-            @endforelse
+            <tbody>
+                @forelse ($restaurants as $restaurant)
+                    <tr>
+                        <td>{{ $restaurant->name }}</td>
+                        <td>{{ $restaurant->address }}</td>
+                        <td>{{ $restaurant->city }}</td>
+                        <td>{{ $restaurant->phone }}</td>
+                        <td>{{ $restaurant->email }}</td>
+                        <td>
+
+                            <a href="/intranet/restaurants/{{ $restaurant->id }}" title="Details"><i
+                                    class="fas fa-eye"></i></a>
+                            <a href="/intranet/dishes/{{ $restaurant->id }}" title="Menu"><i
+                                    class="fas fa-clipboard-list"></i></a>
+                            <a href="/intranet/orders/{{ $restaurant->id }}" title="Orders"><i
+                                    class="fas fa-cart-arrow-down"></i></a>
+                            <a href="/intranet/restaurants/{{ $restaurant->id }}/edit" title="Edit"><i
+                                    class="fas fa-edit"></i></a>
+                            <a href="/intranet/restaurants/{{ $restaurant->id }}/delete" title="Delete"><i
+                                    class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6">No restaurants found.</td>
+                    </tr>
+                @endforelse
+            </tbody>
 
         </table>
 

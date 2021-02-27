@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Restaurant;
 use App\Models\Dish;
 use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     private $prefix = 'intranet.orders.';
+
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +26,21 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
+    public function indexByRestaurant(Restaurant $restaurant)
+    {
+        // $this->authorize('view', Order::class);
+        $orders = $restaurant->getOrders;
+        return view($this->prefix . 'index', ['orders' => $orders, 'restaurant' => $restaurant]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response'
      */
     public function create()
     {
@@ -60,7 +74,7 @@ class OrderController extends Controller
         $order = new Order;
         $order->client_id = $request->client_id;
         $order->restaurant_id = $restaurant_id;
-        $order->state = 'waiting';
+        $order->state = 'received';
         $order->save();
 
         //Saving the cart's items into pivot table 'dish_order'
@@ -68,7 +82,7 @@ class OrderController extends Controller
             $order->getDishes()->attach($item->id, ['quantity' => $item->qty]);
         }
 
-        //limpiar carrito
+        //Cleans a cart
         Cart::destroy();
 
         return view('client.cart');
