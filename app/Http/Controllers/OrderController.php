@@ -33,8 +33,7 @@ class OrderController extends Controller
     public function indexByRestaurant(Restaurant $restaurant)
     {
         // $this->authorize('view', Order::class);
-        $orders = $restaurant->getOrders;
-        return view($this->prefix . 'index', ['orders' => $orders, 'restaurant' => $restaurant]);
+        return view($this->prefix . 'index', ['restaurant' => $restaurant]);
     }
 
     /**

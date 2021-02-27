@@ -9,6 +9,8 @@
         </h1>
     </x-slot>
 
-    @livewire('orders', ['orders'=>$orders, 'restaurant' => $restaurant])
+    @if (isset($restaurant))
+        @livewire('orders', ['restaurant' => $restaurant])
+    @endif
 
 </x-intranet-layout>
