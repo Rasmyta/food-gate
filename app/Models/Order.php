@@ -11,6 +11,13 @@ class Order extends Model
 {
     use HasFactory;
 
+    const STATUSES = [
+        'received' => 'Received',
+        'prepared' => 'Prepared',
+        'delivered' => 'Delivered',
+        'canceled' => 'Canceled'
+    ];
+
     protected $fillable = [
         'client_id', 'restaurant_id', 'deliveryman_id', 'state'
     ];

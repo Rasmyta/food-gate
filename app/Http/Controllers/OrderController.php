@@ -21,7 +21,12 @@ class OrderController extends Controller
     public function index()
     {
         // $this->authorize('view', Order::class);
-        $orders = Order::all();
+        if (auth()->user()->role->name === 'Deliveryman') {
+            $orders = Order::where('state', 'prepared')->get();
+        } else {
+            $orders = Order::all();
+        }
+
         return view($this->prefix . 'index', ['orders' => $orders]);
     }
 
@@ -33,7 +38,7 @@ class OrderController extends Controller
     public function indexByRestaurant(Restaurant $restaurant)
     {
         // $this->authorize('view', Order::class);
-        return view($this->prefix . 'index', ['restaurant' => $restaurant]);
+        return view($this->prefix . 'index-by-restaurant', ['restaurant' => $restaurant]);
     }
 
     /**

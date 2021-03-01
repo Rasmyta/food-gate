@@ -97,11 +97,11 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description" class="form-control" cols="30"
-                            rows="4"></textarea>
-                    </div>
+
+                    <x-input.group label="Description" for="description" :error="$errors->first('description')">
+                        <x-input.textarea name="description" value="{{ old('description') }}" />
+                    </x-input.group>
+
                     <div class="form-group">
                         <label for="photo_path">Photo</label>
                         <input type="file" name="photo_path" id="photo_path" class="form-control">

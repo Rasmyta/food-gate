@@ -9,25 +9,31 @@ class OrderTable extends Component
 {
     public $orders;
     public $restaurant;
-    public $state  = 'received';
+    public $state = 'received';
     public $showEditModal = false;
     public Order $editing;
 
     protected $listeners = ['changeState'];
 
-    protected $rules = [
-        'editing.state' => 'required',
-        'editing.deliveryman_id' => 'integer'
-    ];
+    public function rules()
+    {
+        return [
+            'editing.state' => 'required|in:' . collect(Order::STATUSES)->keys()->implode(','),
+            'editing.deliveryman_id' => 'integer'
+        ];
+    }
 
-    public function mount($restaurant)
+    public function mount($restaurant = "", $orders = "")
     {
         $this->restaurant = $restaurant;
+        $this->orders = $orders;
     }
 
     public function render()
     {
-        $this->orders = $this->restaurant->getOrders->where('state', $this->state);
+        if (!empty($this->restaurant)) {
+            $this->orders = $this->restaurant->getOrders->where('state', $this->state);
+        }
         return view('livewire.order-table');
     }
 

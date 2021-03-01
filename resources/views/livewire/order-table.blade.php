@@ -5,6 +5,7 @@
                 <th>Order ID</th>
                 <th>Client</th>
                 <th>Created at</th>
+                <th>Updated at</th>
                 <th>Deliveryman</th>
                 <th>State</th>
                 <th></th>
@@ -18,6 +19,7 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->getClient->name }}</td>
                     <td>{{ $order->created_at }}</td>
+                    <td>{{ $order->updated_at }}</td>
                     @if (isset($order->getDeliveryman))
                         <td>{{ $order->getDeliveryman->name }}</td>
                     @else
@@ -25,7 +27,7 @@
                     @endif
                     <td>{{ $order->state }}</td>
                     <td>
-                        <button wire:click="edit({{ $order->id }})" class="btn btn-primary"><i
+                        <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
                                 class="fas fa-edit"></i></button>
                     </td>
                 </tr>
@@ -43,13 +45,24 @@
         <x-modal.dialog wire:model.defer="showEditModal">
             <x-slot name="title">Edit state</x-slot>
             <x-slot name="content">
-                <div class="form-group">
-                    <label for="state">State</label>
-                    <input wire:model="editing.state" class="form-control" name="state" id="state" type="text" value="">
-                    @error('editing.state')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+
+                <x-input.group :error="$errors->first('name')">
+                    <x-input.select wire:model="editing.state" name="state">
+                        {{-- @can('update', \App\Models\Order::class)
+                            <option value="received">Received</option>
+                            <option value="prepared">Prepared</option>
+                            <option value="canceled">Canceled</option>
+                        @endcan --}}
+                        <option value="received">Received</option>
+                        <option value="prepared">Prepared</option>
+                        <option value="canceled">Canceled</option>
+                        @if (auth()->user()->role->name === 'Deliveryman')
+                            {{-- <option value="prepared">Prepared</option> --}}
+                            <option value="delivered">Delivered</option>
+                        @endif
+                    </x-input.select>
+                </x-input.group>
+
             </x-slot>
             <x-slot name="footer">
                 <button class="btn btn-secondary">Cancel</button>

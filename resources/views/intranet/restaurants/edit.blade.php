@@ -8,70 +8,40 @@
     <div class="row">
 
         <form method="POST" action="/intranet/restaurants/{{ $restaurant->id }}" enctype="multipart/form-data">
-            {{-- !important --}}
             @csrf
             @method('PUT')
-            {{-- !important --}}
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input class="form-control" class="@error('name') is-invalid @enderror" name="name" id="name"
-                    type="text" value="{{ $restaurant->name }}">
-                @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="address">Address</label>
-                <input class="form-control" class="@error('address') is-invalid @enderror" name="address" id="address"
-                    type="text" value="{{ $restaurant->address }}">
-                @error('address')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="city">City</label>
-                <input class="form-control" class="@error('city') is-invalid @enderror" name="city" id="city"
-                    type="text" value="{{ $restaurant->city }}">
-                @error('city')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input class="form-control" class="@error('phone') is-invalid @enderror" name="phone" id="phone"
-                    type="text" value="{{ $restaurant->phone }}">
-                @error('phone')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input class="form-control" class="@error('email') is-invalid @enderror" name="email" id="email"
-                    type="email" value="{{ $restaurant->email }}">
-                @error('email')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="latitude">Latitude</label>
-                <input class="form-control" class="@error('latitude') is-invalid @enderror" name="latitude"
-                    id="latitude" type="text" value="{{ $restaurant->latitude }}">
-                @error('latitude')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="longitude">Longitude</label>
-                <input class="form-control" class="@error('longitude') is-invalid @enderror" name="longitude"
-                    id="longitude" type="text" value="{{ $restaurant->longitude }}">
-                @error('longitude')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="photo_path">Photo</label>
-                <input type="file" name="photo_path" id="photo_path" class="form-control">
-            </div>
+
+            <x-input.group label="Name" for="name" :error="$errors->first('name')">
+                <x-input.text name="name" value="{{ $restaurant->name }}" />
+            </x-input.group>
+
+            <x-input.group label="Address" for="address" :error="$errors->first('address')">
+                <x-input.text name="address" value="{{ $restaurant->address }}" />
+            </x-input.group>
+
+            <x-input.group label="City" for="city" :error="$errors->first('city')">
+                <x-input.text name="city" value="{{ $restaurant->city }}" />
+            </x-input.group>
+
+            <x-input.group label="Phone" for="phone" :error="$errors->first('phone')">
+                <x-input.text name="phone" value="{{ $restaurant->phone }}" />
+            </x-input.group>
+
+            <x-input.group label="Email" for="email" :error="$errors->first('email')">
+                <x-input.email name="email" value="{{ $restaurant->email }}" />
+            </x-input.group>
+
+            <x-input.group label="Latitude" for="latitude" :error="$errors->first('latitude')">
+                <x-input.text name="latitude" value="{{ $restaurant->latitude }}" />
+            </x-input.group>
+
+            <x-input.group label="Longitude" for="longitude" :error="$errors->first('longitude')">
+                <x-input.text name="longitude" value="{{ $restaurant->longitude }}" />
+            </x-input.group>
+
+            <x-input.group label="Photo" for="photo_path" :error="$errors->first('photo_path')">
+                <x-input.file name="photo_path" />
+            </x-input.group>
 
             <a href="/intranet/restaurants/{{ $restaurant->id }}" class="btn btn-secondary">Cancel</a>
             <button type="submit" class="btn btn-success">Update</button>
