@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Order;
 use Livewire\Component;
 
-class OrderTable extends Component
+class OrderComponent extends Component
 {
     public $orders;
     public $restaurant;
@@ -34,7 +34,7 @@ class OrderTable extends Component
         if (!empty($this->restaurant)) {
             $this->orders = $this->restaurant->getOrders->where('state', $this->state);
         }
-        return view('livewire.order-table');
+        return view('livewire.order-component');
     }
 
     public function changeState($state)

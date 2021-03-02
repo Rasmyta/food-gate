@@ -1,4 +1,4 @@
-<div class="tabcontent">
+<div>
     <table class="table table-hover table-sm" width="100%">
         <thead>
             <tr>
@@ -39,7 +39,6 @@
         </tbody>
 
     </table>
-
 
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
