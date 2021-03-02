@@ -10,16 +10,36 @@ use App\Models\Restaurant;
 class RestaurantComponent extends Component
 {
     use WithPagination;
-    private $prefix = 'intranet.restaurants.';
+
+    public $search = "";
+    public $sortField = "name";
+    public $sortDirection = 'asc';
+
+    protected $queryString = ['sortField', 'sortDirection'];
 
     public function render()
     {
-        // if (Auth::user()->role->name == "Administrator") {
-        //     $restaurants = Restaurant::paginate(10);
-        // } else {
-        //     $restaurants = Restaurant::where('user_id', '=', Auth::id())->paginate(10);
-        // }
-        $restaurants = Restaurant::paginate(10);
-        return view('intranet.restaurants.index', ['restaurants' => $restaurants]);
+        if (Auth::user()->role->name == "Administrator") {
+            $restaurants = Restaurant::search($this->search)->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(10);
+        } else {
+            $restaurants = Restaurant::where('user_id', '=', Auth::id())->search($this->search)->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(10);
+        }
+        return view('livewire.restaurant-component', [
+            'restaurants' => $restaurants
+        ]);
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+
+        $this->sortField = $field;
     }
 }

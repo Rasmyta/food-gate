@@ -11,10 +11,22 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-    // It's necessary if we use Eloquent method 'save' to insert new Restaurant
     protected $fillable = [
         'name', 'address', 'city', 'phone', 'email', 'latitude', 'longitude'
     ];
+
+    /**
+     * Scope the restaurants by a search.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('city', 'like', '%' . $search . '%');
+    }
 
     public function getDishes()
     {

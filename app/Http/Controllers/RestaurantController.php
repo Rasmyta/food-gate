@@ -18,13 +18,14 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role->name == "Administrator") {
-            $restaurants = Restaurant::paginate(10);
-        } else {
-            $restaurants = Restaurant::where('user_id', '=', Auth::id())->paginate(10);
-        }
+        // if (Auth::user()->role->name == "Administrator") {
+        //     $restaurants = Restaurant::paginate(10);
+        // } else {
+        //     $restaurants = Restaurant::where('user_id', '=', Auth::id())->paginate(10);
+        // }
 
-        return view($this->prefix . 'index', ['restaurants' => $restaurants]);
+        // return view($this->prefix . 'index', ['restaurants' => $restaurants]);
+        return view($this->prefix . 'index');
     }
 
     /**
