@@ -18,13 +18,6 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        // if (Auth::user()->role->name == "Administrator") {
-        //     $restaurants = Restaurant::paginate(10);
-        // } else {
-        //     $restaurants = Restaurant::where('user_id', '=', Auth::id())->paginate(10);
-        // }
-
-        // return view($this->prefix . 'index', ['restaurants' => $restaurants]);
         return view($this->prefix . 'index');
     }
 
@@ -35,8 +28,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Restaurant::class);
-        return view($this->prefix . 'create');
+        //
     }
 
     /**
@@ -47,38 +39,7 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Restaurant::class);
-        $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email:rfc,filter',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
-
-        $restaurant = new Restaurant;
-
-        $restaurant->name = $request->name;
-        $restaurant->address = $request->address;
-        $restaurant->city = $request->city;
-        $restaurant->phone = $request->phone;
-        $restaurant->email = $request->email;
-        $restaurant->latitude = $request->latitude;
-        $restaurant->longitude = $request->longitude;
-        $restaurant->user_id = Auth::id();
-        $restaurant->save();
-
-        // If the photo is valid, it will be saved in storage/app/public/images/restaurants
-        if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
-            $name = 'restaurant_' . $restaurant->id;
-            $path = $request->photo_path->storeAs('public/images/restaurants', $name . '.' . $request->photo_path->extension());
-            $restaurant->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/restaurants/photoname
-            $restaurant->save();
-        }
-
-        return redirect()->action([RestaurantController::class, 'show'], $restaurant);
+        //
     }
 
     /**
@@ -101,8 +62,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        $this->authorize('update', $restaurant);
-        return view($this->prefix . 'edit', ['restaurant' => $restaurant]);
+        //
     }
 
     /**
@@ -114,36 +74,7 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, Restaurant $restaurant)
     {
-        $this->authorize('update', $restaurant);
-        $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email:rfc,filter',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
-
-        $restaurant->name = $request->name;
-        $restaurant->address = $request->address;
-        $restaurant->city = $request->city;
-        $restaurant->phone = $request->phone;
-        $restaurant->email = $request->email;
-        $restaurant->latitude = $request->latitude;
-        $restaurant->longitude = $request->longitude;
-        $restaurant->save();
-
-        // If the photo is valid, it will be saved in storage/app/public/images/restaurants
-        if ($request->hasFile('photo_path') && $request->file('photo_path')->isValid()) {
-            echo "PHOTO valid";
-            $name = 'restaurant_' . $restaurant->id;
-            $path = $request->photo_path->storeAs('public/images/restaurants', $name . '.' . $request->photo_path->extension());
-            $restaurant->photo_path = str_replace('public', 'storage', $path); //url to public folder - storage/images/restaurants/photoname
-            $restaurant->save();
-        }
-
-        return redirect()->action([RestaurantController::class, 'show'], $restaurant);
+        //
     }
 
     /**

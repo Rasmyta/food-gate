@@ -12,7 +12,7 @@ class Restaurant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'address', 'city', 'phone', 'email', 'latitude', 'longitude'
+        'name', 'address', 'city', 'phone', 'email', 'latitude', 'longitude', 'user_id', 'photo_path'
     ];
 
     /**

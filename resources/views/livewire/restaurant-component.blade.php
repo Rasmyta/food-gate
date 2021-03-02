@@ -7,9 +7,7 @@
          </div>
          @can('create', \App\Models\Restaurant::class)
              <div>
-                 <a href="/intranet/restaurants/create">
-                     <button class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
-                 </a>
+                 <button wire:click="create" class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
              </div>
          @endcan
      </div>
@@ -17,7 +15,7 @@
      <x-table.table>
          <x-slot name="head">
              <x-table.heading sortable wire:click="sortBy('name')"
-                 :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.heading>
+                 :direction="$sortField === 'name' ? $sortDirection : null" class="w-25">Name</x-table.heading>
              <x-table.heading sortable wire:click="sortBy('address')"
                  :direction="$sortField === 'address' ? $sortDirection : null">Address</x-table.heading>
              <x-table.heading sortable wire:click="sortBy('city')"
@@ -37,15 +35,16 @@
                      <x-table.cell>{{ $restaurant->phone }}</x-table.cell>
                      <x-table.cell>{{ $restaurant->email }}</x-table.cell>
                      <x-table.cell>
-                         <a href="/intranet/restaurants/{{ $restaurant->id }}" title="Details"><i
+
+                         <a href="/intranet/restaurants/{{ $restaurant->id }}" title="Details" class="pl-1"><i
                                  class="fas fa-eye"></i></a>
-                         <a href="/intranet/dishes/{{ $restaurant->id }}" title="Menu"><i
+                         <a href="/intranet/dishes/{{ $restaurant->id }}" title="Menu" class="p-1"><i
                                  class="fas fa-clipboard-list"></i></a>
-                         <a href="/intranet/orders/{{ $restaurant->id }}" title="Orders"><i
+                         <a href="/intranet/orders/{{ $restaurant->id }}" title="Orders" class="p-1"><i
                                  class="fas fa-cart-arrow-down"></i></a>
-                         <a href="/intranet/restaurants/{{ $restaurant->id }}/edit" title="Edit"><i
-                                 class="fas fa-edit"></i></a>
-                         <a href="/intranet/restaurants/{{ $restaurant->id }}/delete" title="Delete"><i
+                         <button wire:click="edit({{ $restaurant->id }})" class="p-1" title="Edit"><i
+                                 class="fas fa-edit"></i></button>
+                         <a href="/intranet/restaurants/{{ $restaurant->id }}/delete" title="Delete" class="p-1"><i
                                  class="fas fa-trash-alt"></i></a>
                      </x-table.cell>
                  </x-table.row>
@@ -59,5 +58,58 @@
      </x-table.table>
 
      <div class="mx-2">{{ $restaurants->links() }}</div>
+
+     <form wire:submit.prevent="save">
+         <x-modal.dialog wire:model.defer="showModal">
+             <x-slot name="title">Edit restaurant</x-slot>
+             <x-slot name="content">
+
+                 <x-input.group label="Name" for="name" :error="$errors->first('editing.name')">
+                     <x-input.text wire:model="editing.name" name="name" />
+                 </x-input.group>
+
+                 <div class="form-row">
+                     <x-input.group class="col-md-7" label="Address" for="address"
+                         :error="$errors->first('editing.address')">
+                         <x-input.text wire:model="editing.address" name="address" />
+                     </x-input.group>
+                     <x-input.group class="col-md-5" label="City" for="city" :error="$errors->first('editing.city')">
+                         <x-input.text wire:model="editing.city" name="city" />
+                     </x-input.group>
+                 </div>
+
+                 <div class="form-row">
+                     <x-input.group class="col-md-5" label="Phone" for="phone" :error="$errors->first('editing.phone')">
+                         <x-input.text wire:model="editing.phone" name="phone" />
+                     </x-input.group>
+                     <x-input.group class="col-md-7" label="Email" for="email" :error="$errors->first('editing.email')">
+                         <x-input.email wire:model="editing.email" name="email" />
+                     </x-input.group>
+
+                 </div>
+
+                 <div class="form-row">
+                     <x-input.group class="col-md-6" label="Latitude" for="latitude"
+                         :error="$errors->first('editing.latitude')">
+                         <x-input.text wire:model="editing.latitude" name="latitude" />
+                     </x-input.group>
+                     <x-input.group class="col-md-6" label="Longitude" for="longitude"
+                         :error="$errors->first('editing.longitude')">
+                         <x-input.text wire:model="editing.longitude" name="longitude" />
+                     </x-input.group>
+                 </div>
+
+                 <x-input.group label="Photo" for="photo_path" :error="$errors->first('upload')">
+                     <x-input.file name="photo_path" wire:model="upload" />
+                 </x-input.group>
+
+             </x-slot>
+             <x-slot name="footer">
+                 <button wire:click="$set('showModal', false)" class="btn btn-secondary">Cancel</button>
+                 <button class="btn btn-primary" type="submit">Save</button>
+             </x-slot>
+
+         </x-modal.dialog>
+     </form>
 
  </div>

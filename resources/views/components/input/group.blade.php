@@ -4,11 +4,11 @@
  'error' => false
  ])
 
- <div class="form-group">
+ <div {{ $attributes }} class="form-group">
      <label for="{{ $for }}">{{ $label }}</label>
      {{ $slot }}
 
      @if ($error)
-         <div class="alert alert-danger">{{ $error }}</div>
+         <div class="alert alert-danger p-0">{{ $error }}</div>
      @endif
  </div>
