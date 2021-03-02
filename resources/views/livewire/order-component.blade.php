@@ -64,7 +64,7 @@
 
             </x-slot>
             <x-slot name="footer">
-                <button class="btn btn-secondary">Cancel</button>
+                <button wire:click="$set('showEditModal', false)" class="btn btn-secondary">Cancel</button>
                 <button class="btn btn-primary" type="submit">Save</button>
             </x-slot>
 
