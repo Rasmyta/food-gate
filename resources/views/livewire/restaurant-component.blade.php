@@ -44,8 +44,8 @@
                                  class="fas fa-cart-arrow-down"></i></a>
                          <button wire:click="edit({{ $restaurant->id }})" class="p-1" title="Edit"><i
                                  class="fas fa-edit"></i></button>
-                         <a href="/intranet/restaurants/{{ $restaurant->id }}/delete" title="Delete" class="p-1"><i
-                                 class="fas fa-trash-alt"></i></a>
+                         <button wire:click="deleteId({{ $restaurant->id }})" class="p-1" title="Delete"><i
+                                 class="fas fa-trash-alt"></i></button>
                      </x-table.cell>
                  </x-table.row>
 
@@ -59,6 +59,7 @@
 
      <div class="mx-2">{{ $restaurants->links() }}</div>
 
+     <!-- Create / Update Restaurant Modal -->
      <form wire:submit.prevent="save">
          <x-modal.dialog wire:model.defer="showModal">
              <x-slot name="title">Edit restaurant</x-slot>
@@ -110,6 +111,24 @@
              </x-slot>
 
          </x-modal.dialog>
+     </form>
+
+
+     <!-- Delete Restaurant Modal -->
+     <form wire:submit.prevent="delete">
+         <x-modal.confirmation wire:model.defer="showDeleteModal">
+             <x-slot name="title">Delete Restaurant</x-slot>
+
+             <x-slot name="content">
+                 <div class="py-8 text-cool-gray-700">Are you sure? This action is irreversible.</div>
+             </x-slot>
+
+             <x-slot name="footer">
+                 <button wire:click="$set('showDeleteModal', false)" type="button"
+                     class="btn btn-secondary">Cancel</button>
+                 <button class="btn btn-primary" type="submit">Delete</button>
+             </x-slot>
+         </x-modal.confirmation>
      </form>
 
  </div>

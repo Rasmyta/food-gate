@@ -16,8 +16,10 @@ class RestaurantComponent extends Component
     public $search = "";
     public $sortField = "name";
     public $sortDirection = 'asc';
+    public $showDeleteModal = false;
     public $showModal = false;
     public $upload;
+    public $deleteId = '';
     public Restaurant $editing;
 
     protected $queryString = ['sortField', 'sortDirection'];
@@ -62,6 +64,12 @@ class RestaurantComponent extends Component
         $this->showModal = true;
     }
 
+    public function create()
+    {
+        $this->editing = $this->makeBlankRestaurant(); //cleaning modal fields
+        $this->showModal = true;
+    }
+
     public function save()
     {
         $this->validate();
@@ -74,11 +82,18 @@ class RestaurantComponent extends Component
         $this->showModal = false;
     }
 
-    public function create()
+    public function deleteId($id)
     {
-        $this->editing = $this->makeBlankRestaurant(); //cleaning modal fields
-        $this->showModal = true;
+        $this->deleteId = $id;
+        $this->showDeleteModal = true;
     }
+
+    public function delete()
+    {
+        Restaurant::findOrFail($this->deleteId)->delete();
+        $this->showDeleteModal = false;
+    }
+
 
     public function sortBy($field)
     {
