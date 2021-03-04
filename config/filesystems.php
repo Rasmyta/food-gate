@@ -35,10 +35,17 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'restaurants' => [
+        'diskrestaurant' => [
             'driver' => 'local',
-            'root' => storage_path('app/restaurants'),
-            'url' => env('APP_URL') . '/restaurants',
+            'root' => storage_path('app/diskrestaurant'),
+            'url' => env('APP_URL') . '/diskrestaurant',
+            'visibility' => 'public',
+        ],
+
+        'diskdishes' => [
+            'driver' => 'local',
+            'root' => storage_path('app/diskdishes'),
+            'url' => env('APP_URL') . '/diskdishes',
             'visibility' => 'public',
         ],
 
@@ -74,7 +81,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('restaurants') => storage_path('app/restaurants'),
+        public_path('diskrestaurant') => storage_path('app/diskrestaurant'),
+        public_path('diskdishes') => storage_path('app/diskdishes'),
     ],
 
 ];

@@ -7,8 +7,8 @@
                 <div class="col my-4">
                     <div class="card h-100">
                         @isset($restaurant->photo_path)
-                            <img src="{{ url($restaurant->photo_path) }}" alt="{{ $restaurant->name }}"
-                                class="card-img-top h-45" />
+                            <img src="{{ Storage::disk('diskrestaurant')->url($restaurant->photo_path) }}"
+                                alt="{{ $restaurant->name }}" class="card-img-top h-45" />
                         @endisset
                         <div class="card-body">
                             <a href="/restaurant/{{ $restaurant->id }}">

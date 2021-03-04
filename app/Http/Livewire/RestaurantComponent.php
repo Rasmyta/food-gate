@@ -44,6 +44,11 @@ class RestaurantComponent extends Component
         $this->editing = $this->makeBlankRestaurant();
     }
 
+    public function makeBlankRestaurant()
+    {
+        return  $this->editing = Restaurant::make(['user_id' => Auth::id()]);
+    }
+
     public function render()
     {
         if (Auth::user()->role->name == "Administrator") {
@@ -76,7 +81,7 @@ class RestaurantComponent extends Component
         $this->editing->save();
 
         $this->upload && $this->editing->update([
-            'photo_path' => $this->upload->store('/', 'restaurants')
+            'photo_path' => $this->upload->store('/', 'diskrestaurant')
         ]);
 
         $this->showModal = false;
@@ -104,10 +109,5 @@ class RestaurantComponent extends Component
         }
 
         $this->sortField = $field;
-    }
-
-    public function makeBlankRestaurant()
-    {
-        return  $this->editing = Restaurant::make(['user_id' => Auth::id()]);
     }
 }

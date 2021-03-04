@@ -20,9 +20,11 @@ class DishController extends Controller
      */
     public function index(Restaurant $restaurant)
     {
-        $dishes = $restaurant->getDishes;
-        // $dishes = Dish::where('restaurant_id', '=', $restaurant->id)->paginate(3);
-        return view($this->prefix . 'index', ['dishes' => $dishes, 'restaurant' => $restaurant]);
+        // $dishes = $restaurant->getDishes;
+        // // $dishes = Dish::where('restaurant_id', '=', $restaurant->id)->paginate(3);
+        // return view($this->prefix . 'index', ['dishes' => $dishes, 'restaurant' => $restaurant]);
+
+        return view($this->prefix . 'index', ['restaurant' => $restaurant]);
     }
 
     /**

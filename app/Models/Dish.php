@@ -16,6 +16,19 @@ class Dish extends Model
         'category_id', 'restaurant_id', 'name', 'description', 'price', 'photo_path'
     ];
 
+    /**
+     * Scope the restaurants by a search.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', '%' . $search . '%');
+        // ->orWhere('category', 'like', '%' . $search . '%');
+    }
+
     public function getRestaurant()
     {
         return $this->belongsTo(Restaurant::class, 'restaurant_id');

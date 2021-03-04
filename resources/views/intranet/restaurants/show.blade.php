@@ -19,7 +19,7 @@
                             @isset($restaurant->photo_path)
                                 <tr>
                                     <td colspan="2">
-                                        <img src="{{ Storage::disk('restaurants')->url($restaurant->photo_path) }}"
+                                        <img src="{{ Storage::disk('diskrestaurant')->url($restaurant->photo_path) }}"
                                             alt="{{ $restaurant->name }}" class="card-img-top h-45" />
                                     </td>
                                 </tr>

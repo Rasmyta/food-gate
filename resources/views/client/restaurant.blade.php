@@ -17,7 +17,8 @@
                 <div class="col mb-4">
                     <div class="card h-100">
                         @isset($dish->photo_path)
-                            <img src="{{ url($dish->photo_path) }}" alt="{{ $dish->name }}" class="card-img-top h-45" />
+                            <img src="{{ Storage::disk('diskdishes')->url($dish->photo_path) }}" alt="{{ $dish->name }}"
+                                class="card-img-top h-45" />
                         @endisset
                         <div class="card-body">
                             <a href="/dish/{{ $dish->id }}">
