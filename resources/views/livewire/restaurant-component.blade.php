@@ -106,8 +106,8 @@
 
              </x-slot>
              <x-slot name="footer">
-                 <button wire:click="$set('showModal', false)" class="btn btn-secondary">Cancel</button>
-                 <button class="btn btn-primary" type="submit">Save</button>
+                 <x-button.secondary wire:click="$set('showModal', false)">Cancel</x-button.secondary>
+                 <x-button.primary type="submit">Save</x-button.primary>
              </x-slot>
 
          </x-modal.dialog>
@@ -124,9 +124,8 @@
              </x-slot>
 
              <x-slot name="footer">
-                 <button wire:click="$set('showDeleteModal', false)" type="button"
-                     class="btn btn-secondary">Cancel</button>
-                 <button class="btn btn-primary" type="submit">Delete</button>
+                 <x-button.secondary wire:click="$set('showDeleteModal', false)">Cancel</x-button.secondary>
+                 <x-button.primary type="submit">Delete</x-button.primary>
              </x-slot>
          </x-modal.confirmation>
      </form>

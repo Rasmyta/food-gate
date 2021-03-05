@@ -21,14 +21,26 @@
                     <td>{{ $order->created_at }}</td>
                     <td>{{ $order->updated_at }}</td>
                     @if (isset($order->getDeliveryman))
-                        <td>{{ $order->getDeliveryman->name }}</td>
+                        <td>{{ $order->getDeliveryman->name }} {{ $order->getDeliveryman->surname }}</td>
                     @else
                         <td>not assigned</td>
                     @endif
                     <td>{{ $order->state }}</td>
                     <td>
-                        <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
-                                class="fas fa-edit"></i></button>
+                        {{-- CHANGE WITH @CAN because admin cant edit order, only manager or deliveryman --}}
+                        @if (auth()->user()->role->name !== 'Deliveryman')
+                            <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
+                                    class="fas fa-edit"></i></button>
+                        @elseif (auth()->user()->role->name === 'Deliveryman' && auth()->id() ===
+                            $order->deliveryman_id)
+                            <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
+                                    class="fas fa-edit"></i></button>
+                        @endif
+                        @if (auth()->user()->role->name === 'Deliveryman' && $order->deliveryman_id == null)
+                            <button wire:click="deliver({{ $order->id }}, {{ auth()->id() }})"
+                                class="btn btn-primary">Deliver</i></button>
+                        @endif
+                        {{-- CHANGE WITH --@CAN --}}
                     </td>
                 </tr>
             @empty
@@ -40,23 +52,22 @@
 
     </table>
 
+    {{-- <div class="mx-2">{{ $orders->links() }}</div> --}}
+
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
-            <x-slot name="title">Edit state</x-slot>
+            <x-slot name="title">Edit Order</x-slot>
             <x-slot name="content">
 
-                <x-input.group :error="$errors->first('name')">
+                <x-input.group :error="$errors->first('editing.state')">
                     <x-input.select wire:model="editing.state" name="state">
-                        {{-- @can('update', \App\Models\Order::class)
+                        @if (auth()->user()->role->name === 'Restaurant_manager')
                             <option value="received">Received</option>
                             <option value="prepared">Prepared</option>
                             <option value="canceled">Canceled</option>
-                        @endcan --}}
-                        <option value="received">Received</option>
-                        <option value="prepared">Prepared</option>
-                        <option value="canceled">Canceled</option>
+                        @endif
                         @if (auth()->user()->role->name === 'Deliveryman')
-                            {{-- <option value="prepared">Prepared</option> --}}
+                            <option value="prepared">Prepared</option>
                             <option value="delivered">Delivered</option>
                         @endif
                     </x-input.select>
@@ -64,8 +75,8 @@
 
             </x-slot>
             <x-slot name="footer">
-                <button wire:click="$set('showEditModal', false)" class="btn btn-secondary">Cancel</button>
-                <button class="btn btn-primary" type="submit">Save</button>
+                <x-button.secondary wire:click="$set('showEditModal', false)">Cancel</x-button.secondary>
+                <x-button.primary type="submit">Save</x-button.primary>
             </x-slot>
 
         </x-modal.dialog>
