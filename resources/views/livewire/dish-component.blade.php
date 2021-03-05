@@ -56,9 +56,9 @@
     <!-- Create / Update Dish Modal -->
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showModal">
-            <x-slot name="title">Edit dish</x-slot>
-            <x-slot name="content">
 
+            <x-slot name="title">Dish</x-slot>
+            <x-slot name="content">
                 <x-input.group label="Name" for="name" :error="$errors->first('editing.name')">
                     <x-input.text wire:model="editing.name" name="name" />
                 </x-input.group>
@@ -70,7 +70,7 @@
                     </x-input.group>
 
                     <x-input.group label="Pick a category" class="col-md-6" for="category_id"
-                        :error="$errors->first('category_id')">
+                        :error="$errors->first('editing.category_id')">
                         <x-input.select wire:model="editing.category_id" name="category_id">
                             @forelse ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -95,7 +95,7 @@
 
             </x-slot>
             <x-slot name="footer">
-                <button wire:click="$set('showModal', false)" class="btn btn-secondary">Cancel</button>
+                <button wire:click="$set('showModal', false)" class="btn btn-secondary" type="button">Cancel</button>
                 <button class="btn btn-primary" type="submit">Save</button>
             </x-slot>
 

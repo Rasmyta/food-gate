@@ -34,8 +34,7 @@ class DishComponent extends Component
             'editing.restaurant_id' => 'required',
             'editing.price' => 'required|numeric',
             'editing.description' => 'string|nullable',
-            'editing.photo_path' => 'string|nullable',
-            'upload' => 'image|nullable'
+            'upload' => 'nullable|image'
         ];
     }
 
@@ -49,7 +48,8 @@ class DishComponent extends Component
     public function makeBlankDish()
     {
         return  $this->editing = Dish::make([
-            'restaurant_id' => $this->restaurantId
+            'restaurant_id' => $this->restaurantId,
+            'category_id' => Category::first()->id // important to put one by default
         ]);
     }
 
@@ -65,24 +65,27 @@ class DishComponent extends Component
 
     public function edit(Dish $dish)
     {
-        $this->editing = $dish;
+        if ($this->editing->isNot($dish)) $this->editing = $dish;
         $this->category = $dish->getCategory->name;
         $this->showModal = true;
     }
 
     public function create()
     {
-        $this->editing = $this->makeBlankDish(); //cleaning modal fields
+        // Initializing editing object and cleaning modal fields
+        if ($this->editing->getKey()) {
+            $this->editing = $this->makeBlankDish();
+            $this->upload = "";
+            $this->category = "";
+        }
+
         $this->showModal = true;
     }
 
     public function save()
     {
-
         $this->validate();
         $this->editing->save();
-
-        sleep(1);
 
         $this->upload && $this->editing->update([
             'photo_path' => $this->upload->store('/', 'diskdishes')
