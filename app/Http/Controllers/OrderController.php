@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Restaurant;
 use App\Models\Dish;
 use App\Models\Order;
@@ -20,14 +19,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // $this->authorize('view', Order::class);
-        if (auth()->user()->role->name === 'Deliveryman') {
-            $orders = Order::where('state', 'prepared')->get();
-        } else {
-            $orders = Order::all();
-        }
-
-        return view($this->prefix . 'index', ['orders' => $orders]);
+        // $this->authorize('view', Order::class); !!!
+        return view($this->prefix . 'index');
     }
 
     /**
@@ -68,20 +61,13 @@ class OrderController extends Controller
             $restaurant_id = Dish::findOrFail($item->id)->getRestaurant->id;
         }
 
-        // if (User::getFreeDeliverymen()->first()) {
-        //     $deliverer = User::getFreeDeliverymen()->first();
-        //     $deliverer_id = $deliverer->id;
-        //     $deliverer->state = 'ocupied';
-        // }
-
-
         $order = new Order;
         $order->client_id = $request->client_id;
         $order->restaurant_id = $restaurant_id;
         $order->state = 'received';
         $order->save();
 
-        //Saving the cart's items into pivot table 'dish_order'
+        //Saving the quantity of each item into pivot table 'dish_order'
         foreach ($cart as $item) {
             $order->getDishes()->attach($item->id, ['quantity' => $item->qty]);
         }

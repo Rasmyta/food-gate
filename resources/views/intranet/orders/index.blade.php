@@ -6,6 +6,6 @@
         </h1>
     </x-slot>
 
-    @livewire('order-component', ['orders' => $orders])
+    @livewire('order-component')
 
 </x-intranet-layout>

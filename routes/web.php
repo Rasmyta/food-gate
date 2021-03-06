@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\RestaurantComponent;
+use App\Http\Livewire\Client\CartComponent;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DeliverymanController;
@@ -36,9 +37,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('dish/{id}', [MainController::class, 'showDish']);
 
     //Cart routes
-    Route::get('cart/add/{id}', [CartController::class, 'add']);
-    Route::get('cart/checkout', [CartController::class, 'check']);
-    Route::delete('cart/delete', [CartController::class, 'delete']);
+    Route::view('cart/checkout', 'client.cart');
+    Route::get('cart/add/{id}', [CartComponent::class, 'add']); // Livewire
 
     //Order routes
     Route::resource('orders', OrderController::class);

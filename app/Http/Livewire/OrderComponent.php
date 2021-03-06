@@ -23,20 +23,32 @@ class OrderComponent extends Component
         ];
     }
 
-    public function mount($restaurant = "", $orders = "")
+    // Getting parameters from OrderController
+    public function mount($restaurant = "")
     {
         $this->restaurant = $restaurant;
-        $this->orders = $orders;
     }
 
     public function render()
     {
+        // add pagination if it is possible
         if (!empty($this->restaurant)) {
-            $this->orders = $this->restaurant->getOrders->where('state', $this->state);
+            $this->orders = $this->restaurant->getOrders->where('state', $this->state)->sortBy('created_at');
+        } else {
+            if (auth()->user()->role->name === 'Deliveryman') {
+                $this->orders = Order::where('state', 'prepared')
+                    ->where('deliveryman_id', auth()->user()->id)
+                    ->orWhere('deliveryman_id', null)
+                    ->orderBy('created_at')->get();
+            } else {
+                $this->orders = Order::orderBy('created_at')->get();
+            }
         }
+
         return view('livewire.order-component');
     }
 
+    // Method emitted from parent component to filter by states
     public function changeState($state)
     {
         $this->state = $state;
@@ -46,6 +58,13 @@ class OrderComponent extends Component
     {
         $this->editing = $order;
         $this->showEditModal = true;
+    }
+
+    public function deliver(Order $order, $userId)
+    {
+        $this->editing = $order;
+        $this->editing->deliveryman_id = $userId;
+        $this->save();
     }
 
     public function save()

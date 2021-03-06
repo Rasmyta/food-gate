@@ -8,9 +8,16 @@
 
         <h2 class="mb-4">Dishes</h2>
 
-        @if ($errors->any())
-            <p class='text-danger mb-3'>{{ $errors->first() }}</p>
+        @if (session('message'))
+            <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+        @elseif($errors->any())
+            <div class="alert alert-danger" role="alert">
+                {{ $errors->first() }}
+            </div>
         @endif
+
 
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
             @foreach ($dishes as $dish)
