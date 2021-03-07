@@ -1,3 +1,4 @@
 @props(['name'])
 
-<input {{ $attributes }} class="form-control" name="{{ $name }}" id="{{ $name }}" type="text">
+<input {{ $attributes->merge(['class' => 'form-control']) }} name="{{ $name }}" id="{{ $name }}"
+    type="text">

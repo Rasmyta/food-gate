@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class InvoiceController extends Controller
 {
-    public function show()
+    public function show($id)
     {
+        // var_dump((Cart::restore(24)));
+        // foreach (Cart::restore($id) as $item) {
+        //     echo $item->id . "<br>";
+        // }
+
         $customer = new Buyer([
             'name'          => 'John Doe',
             'custom_fields' => [
@@ -22,11 +27,8 @@ class InvoiceController extends Controller
 
         $invoice = Invoice::make()
             ->buyer($customer)
-            ->discountByPercent(10)
-            ->taxRate(15)
-            ->shipping(1.99)
             ->addItem($item);
 
-        return $invoice->stream();
+        // return $invoice->stream();
     }
 }

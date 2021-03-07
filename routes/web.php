@@ -1,15 +1,14 @@
 <?php
 
-use App\Http\Livewire\RestaurantComponent;
 use App\Http\Livewire\Client\CartComponent;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DeliverymanController;
 use App\Http\Controllers\DishController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\CartController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -35,13 +34,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('restaurant/{id}', [MainController::class, 'showRestaurant']);
     Route::get('dishes/{id}', [MainController::class, 'indexDishes']);
     Route::get('dish/{id}', [MainController::class, 'showDish']);
+    Route::view('orders', 'client.orders')->name('orders');
+    Route::view('categories', 'client.categories')->name('categories');
+    // Route::view('categories/{id}', 'client.categories')->name('categories');
 
-    //Cart routes
-    Route::view('cart/checkout', 'client.cart');
+    Route::view('cart/checkout', 'client.cart')->name('checkout');
     Route::get('cart/add/{id}', [CartComponent::class, 'add']); // Livewire
-
-    //Order routes
-    Route::resource('orders', OrderController::class);
+    Route::get('invoice/{id}', [InvoiceController::class, 'show']);
 });
 
 // INTRANET routes

@@ -80,6 +80,11 @@
     margin: 0;
 }
 
+.category-component .group-links {
+    color: #016484;
+    /* color: var(--dark-green); */
+}
+
 .group-links {
     position: relative;
     margin-bottom: 0.7rem;
@@ -128,7 +133,7 @@
 }
 .row1 {
     height: 85vh;
-    background: url("../storage/food_images/pexels-ella-olsson-1640774.jpg");
+    background: url("../storage/images/cover1.jpg");
     background-size: cover;
     text-align: center;
 }
@@ -309,20 +314,17 @@
     height: 100%;
 }
 
-/* #Received {
-    background-color: var(--green);
-}
-#Prepared {
-    background-color: var(--blue);
-}
-#Delivered {
-    background-color: var(--yellow);
-}
-#Canceled {
-    background-color: var(--orange);
-} */
-
 /* END FULL PAGE TABS FOR ORDERS */
+
+/* CATEGORIES */
+
+.search-category {
+    height: 35vh;
+    background: url("../storage/images/brooke-lark-M4E7X3z80PQ-unsplash.jpg");
+    background-size: cover;
+}
+
+/* END CATEGORIES */
 
 html {
     font-family: sans-serif;

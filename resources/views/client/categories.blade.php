@@ -1,8 +1,6 @@
 <x-app-layout>
 
     <div>
-        <h2 class="mb-5">Popular dishes</h2>
-
         @if (session('message'))
             <div class="alert alert-success" role="alert">
                 {{ session('message') }}
@@ -13,10 +11,7 @@
             </div>
         @endif
 
-        <div class="card-columns">
-            @each('components.dish.dish-card', $dishes, 'dish')
-        </div>
-
+        @livewire('client.category-component')
 
     </div>
 

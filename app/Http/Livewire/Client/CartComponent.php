@@ -15,13 +15,12 @@ class CartComponent extends Component
 
     public function render()
     {
-        // dd(json_decode(Cart::content()));
         return view('livewire.client.cart-component');
     }
 
     public function makeOrder()
     {
-        $this->cart = (Cart::content());
+        $this->cart = Cart::content();
         $restaurant_id = '';
 
         foreach ($this->cart as $item) {
@@ -38,6 +37,9 @@ class CartComponent extends Component
         foreach ($this->cart as $item) {
             $this->order->getDishes()->attach($item->id, ['quantity' => $item->qty]);
         }
+
+        //Storing cart into database
+        Cart::store($this->order->id);
 
         //Cleans a cart
         Cart::destroy();

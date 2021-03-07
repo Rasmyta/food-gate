@@ -3,12 +3,12 @@
 return [
     'date' => [
         /**
-         * Carbon date format
-         */
-        'format'         => 'Y-m-d',
+                 * Carbon date format
+                 */
+        'format'         => 'd/m/Y',
         /**
-         * Due date for payment since invoice's date.
-         */
+                 * Due date for payment since invoice's date.
+                 */
         'pay_until_days' => 7,
     ],
 
@@ -78,8 +78,8 @@ return [
          * Default attributes for Seller::class
          */
         'attributes' => [
-            'name'          => 'Towne, Smith and Ebert',
-            'address'       => '89982 Pfeffer Falls Damianstad, CO 66972-8160',
+            'name'          => 'Food Gate',
+            'address'       => '04630 Malecon 1',
             'code'          => '41-1985581',
             'vat'           => '123456789',
             'phone'         => '760-355-3930',

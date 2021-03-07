@@ -80,7 +80,7 @@ class User extends Authenticatable
 
     public function getOrders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class, 'client_id');
     }
 
     public static function getClients()

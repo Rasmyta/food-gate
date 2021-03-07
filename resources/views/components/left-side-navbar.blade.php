@@ -10,7 +10,7 @@
     <x-jet-nav-link href="{{ route('restaurants') }}" :active="request()->routeIs('restaurants')">
         {{ __('Restaurants') }}
     </x-jet-nav-link>
-    <x-jet-nav-link href="/main" :active="request()->routeIs('categories')">
+    <x-jet-nav-link href="{{ route('categories') }}" :active="request()->routeIs('categories')">
         {{ __('Categories') }}
     </x-jet-nav-link>
 
