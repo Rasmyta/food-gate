@@ -15,10 +15,10 @@
                                     <p class="col pr-2">Order date</p>
                                     <p class="col pr-2">{{ $order->created_at }}</p>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <p class="col pr-2">Total</p>
                                     <p class="col pr-2">xxx &euro;</p>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

@@ -13,11 +13,15 @@
 
 
     <ul class="column-counted">
-        @foreach ($categories as $category)
+        @forelse ($categories as $category)
             <div class="group-links d-flex flex-row align-items-center">
-                <li>{{ $category->name }}</li>
+                <a href="/categories/{{ $category->id }}">
+                    <li>{{ $category->name }}</li>
+                </a>
             </div>
-        @endforeach
+        @empty
+            <p>No results matching your search.</p>
+        @endforelse
     </ul>
 
 </div>

@@ -34,9 +34,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('restaurant/{id}', [MainController::class, 'showRestaurant']);
     Route::get('dishes/{id}', [MainController::class, 'indexDishes']);
     Route::get('dish/{id}', [MainController::class, 'showDish']);
-    Route::view('orders', 'client.orders')->name('orders');
+    Route::get('categories/{category}', [MainController::class, 'showDishByCategory']);
     Route::view('categories', 'client.categories')->name('categories');
-    // Route::view('categories/{id}', 'client.categories')->name('categories');
+    Route::view('orders', 'client.orders')->name('orders');
 
     Route::view('cart/checkout', 'client.cart')->name('checkout');
     Route::get('cart/add/{id}', [CartComponent::class, 'add']); // Livewire

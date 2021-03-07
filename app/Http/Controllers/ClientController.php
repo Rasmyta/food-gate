@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClientResource;
 use App\Models\Client;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -85,5 +87,22 @@ class ClientController extends Controller
         // $this->authorize('delete', $client);
         $client->delete();
         return redirect()->action([ClientController::class, 'index']);
+    }
+
+    public function apiOrders($dni)
+    {
+        $client = User::where('dni', $dni)->first();
+        $orders = Order::where('client_id', $client->id)->get();
+
+        return response(['orders' => new ClientResource($orders)], 200);
+    }
+
+    public function apiOrder($dni, $id)
+    {
+        $client = User::where('dni', $dni)->first();
+        $order = Order::where('client_id', $client->id)
+            ->where('id', $id)->first();
+
+        return response(['order' => new ClientResource($order)], 200);
     }
 }

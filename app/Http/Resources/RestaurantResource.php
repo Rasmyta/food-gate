@@ -15,12 +15,10 @@ class RestaurantResource extends JsonResource
      */
     public function toArray($request)
     {
-
-
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'direction' => $this->direction,
+            'address' => $this->address,
             'city' => $this->city,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -30,5 +28,18 @@ class RestaurantResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+    }
+
+    /**
+     * Customize the outgoing response for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Response  $response
+     * @return void
+     */
+    public function withResponse($request, $response)
+    {
+        $response->header('Accept', 'application/json');
+        $response->header('Content-Type', 'application/json');
     }
 }

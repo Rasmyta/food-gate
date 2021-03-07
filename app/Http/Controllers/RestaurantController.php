@@ -93,6 +93,16 @@ class RestaurantController extends Controller
 
     public function apiStore(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email:rfc,filter',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
         $restaurant = new Restaurant;
         $restaurant->name = $request->name;
         $restaurant->address = $request->address;
@@ -109,6 +119,7 @@ class RestaurantController extends Controller
             'message' => 'Created succesfully'
         ], 201);
     }
+
 
     public function apiDelete(Restaurant $restaurant)
     {

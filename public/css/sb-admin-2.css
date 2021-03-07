@@ -80,9 +80,20 @@
     margin: 0;
 }
 
-.category-component .group-links {
+.category-component .group-links a {
     color: #016484;
-    /* color: var(--dark-green); */
+}
+
+.category-component .group-links a:hover {
+    color: white;
+    text-decoration: none;
+}
+.category-component .group-links:hover {
+    background-color: #016484;
+}
+
+.group-links a {
+    text-decoration: none;
 }
 
 .group-links {

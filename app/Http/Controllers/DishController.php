@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DishResource;
 use App\Models\Dish;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -84,5 +85,42 @@ class DishController extends Controller
     public function destroy(Dish $dish)
     {
         //
+    }
+    public function apiStoreDish(Request $request, $restaurantId)
+    {
+        $request->validate([
+            'name' => 'required',
+            'category_id' => 'required|numeric',
+            'price' => 'required|numeric',
+        ]);
+
+        $dish = new Dish;
+        $dish->category_id = $request->category_id;
+        $dish->restaurant_id = $restaurantId;
+        $dish->name = $request->name;
+        $dish->description = $request->description;
+        $dish->photo_path = $request->photo_path;
+        $dish->price = $request->price;
+        $dish->save();
+
+        return response([
+            'dish' => new DishResource($dish),
+            'message' => 'Created succesfully'
+        ], 201);
+    }
+
+    public function apiDeleteDish(Dish $dish)
+    {
+        $this->authorize('delete', $dish);
+        $dish->delete();
+
+        return response(['message' => 'Deleted succesfully'], 200);
+    }
+
+    public function apiDishesByCategory($categoryId)
+    {
+        $dishes = Dish::where('category_id', $categoryId)->get();
+
+        return response(['dishes' => new DishResource($dishes)], 200);
     }
 }

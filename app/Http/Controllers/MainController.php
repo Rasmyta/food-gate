@@ -67,4 +67,15 @@ class MainController extends Controller
         $restaurant = $dish->getRestaurant;
         return view('client.dish', ['dish' => $dish, 'restaurant' => $restaurant]);
     }
+
+    /**
+     * Display the dihes by specified category.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showDishByCategory(Category $category)
+    {
+        $dishes = Dish::where('category_id', $category->id)->paginate(10);
+        return view('client.category', ['dishes' => $dishes, 'category' => $category]);
+    }
 }
