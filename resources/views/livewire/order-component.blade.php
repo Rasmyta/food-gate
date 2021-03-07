@@ -27,20 +27,20 @@
                     @endif
                     <td>{{ $order->state }}</td>
                     <td>
-                        {{-- CHANGE WITH @CAN because admin cant edit order, only manager or deliveryman --}}
-                        @if (auth()->user()->role->name !== 'Deliveryman')
-                            <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
-                                    class="fas fa-edit"></i></button>
-                        @elseif (auth()->user()->role->name === 'Deliveryman' && auth()->id() ===
-                            $order->deliveryman_id)
-                            <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
-                                    class="fas fa-edit"></i></button>
-                        @endif
-                        @if (auth()->user()->role->name === 'Deliveryman' && $order->deliveryman_id == null)
-                            <button wire:click="deliver({{ $order->id }}, {{ auth()->id() }})"
-                                class="btn btn-primary">Deliver</i></button>
-                        @endif
-                        {{-- CHANGE WITH --@CAN --}}
+                        @can('update', $order)
+                            @if (auth()->user()->role->name === 'Restaurant_manager')
+                                <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
+                                        class="fas fa-edit"></i></button>
+                            @elseif (auth()->user()->role->name === 'Deliveryman' && auth()->id() ===
+                                $order->deliveryman_id)
+                                <button wire:click="edit({{ $order->id }})" class="btn btn-primary" title="Edit state"><i
+                                        class="fas fa-edit"></i></button>
+                            @endif
+                            @if (auth()->user()->role->name === 'Deliveryman' && $order->deliveryman_id == null)
+                                <button wire:click="deliver({{ $order->id }}, {{ auth()->id() }})"
+                                    class="btn btn-primary">Deliver</i></button>
+                            @endif
+                        @endcan
                     </td>
                 </tr>
             @empty

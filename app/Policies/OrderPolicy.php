@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Order;
+use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -18,7 +19,7 @@ class OrderPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return  $user->role->name == 'Deliveryman';
     }
 
     /**
@@ -30,11 +31,7 @@ class OrderPolicy
      */
     public function view(User $user, Order $order)
     {
-        $client = $user->id === $order->client_id;
-        $deliveryman = $user->id === $order->deliveryman_id;
-        $manager = $user->id === $user->getRestaurant->user_id;
-
-        return  $client || $deliveryman || $manager || $user->role->name == 'Administrator';
+        // The user can view order if he has a permission to view order's restaurant.
     }
 
     /**
@@ -45,7 +42,7 @@ class OrderPolicy
      */
     public function create(User $user)
     {
-        //
+        return  $user->role->name == 'Client';
     }
 
     /**
@@ -57,7 +54,8 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        //
+        $manager = $user->id === Restaurant::where('id', $order->restaurant_id)->first()->user_id;
+        return $user->role->name == 'Deliveryman' || $manager;
     }
 
     /**

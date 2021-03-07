@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
-use App\Models\Dish;
 use App\Models\Order;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,7 +17,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // $this->authorize('view', Order::class); !!!
         return view($this->prefix . 'index');
     }
 
@@ -30,7 +27,7 @@ class OrderController extends Controller
      */
     public function indexByRestaurant(Restaurant $restaurant)
     {
-        // $this->authorize('view', Order::class);
+        $this->authorize('view', $restaurant);
         return view($this->prefix . 'index-by-restaurant', ['restaurant' => $restaurant]);
     }
 
@@ -52,30 +49,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->authorize('create', Order::class);
-
-        $cart = json_decode($request->cart);
-        $restaurant_id = '';
-
-        foreach ($cart as $item) {
-            $restaurant_id = Dish::findOrFail($item->id)->getRestaurant->id;
-        }
-
-        $order = new Order;
-        $order->client_id = $request->client_id;
-        $order->restaurant_id = $restaurant_id;
-        $order->state = 'received';
-        $order->save();
-
-        //Saving the quantity of each item into pivot table 'dish_order'
-        foreach ($cart as $item) {
-            $order->getDishes()->attach($item->id, ['quantity' => $item->qty]);
-        }
-
-        //Cleans a cart
-        Cart::destroy();
-
-        return view('client.cart');
+        //
     }
 
     /**

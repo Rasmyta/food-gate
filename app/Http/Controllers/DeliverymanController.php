@@ -16,6 +16,7 @@ class DeliverymanController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', User::class);
         return view($this->prefix . 'index', ['deliverymen' => User::getDeliverymen()]);
     }
 
@@ -82,7 +83,7 @@ class DeliverymanController extends Controller
      */
     public function destroy(User $deliveryman)
     {
-        // $this->authorize('delete', $restaurant);
+        $this->authorize('delete', $deliveryman);
         $deliveryman->delete();
         return redirect()->action([DeliverymanController::class, 'index']);
     }

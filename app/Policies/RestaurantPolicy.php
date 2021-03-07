@@ -18,7 +18,7 @@ class RestaurantPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return  $user->role->name == 'Administrator' || $user->role->name === 'Restaurant_manager';
     }
 
     /**

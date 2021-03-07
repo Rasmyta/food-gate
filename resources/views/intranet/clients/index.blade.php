@@ -9,7 +9,7 @@
     <div class="">
 
         <div class="d-flex flex-row my-3 justify-content-between align-items-center">
-            <div>Search</div>
+            {{-- <div>Search</div> --}}
         </div>
 
         <table class="table table-striped table-bordered table-sm" width="100%">

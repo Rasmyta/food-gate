@@ -6,24 +6,24 @@
     </x-slot>
 
     <div class="d-flex flex-row my-3 justify-content-between align-items-center">
-        <div>Search</div>
-        {{-- @can('create', \App\Models\Restaurant::class) --}}
+        {{-- <div>Search</div> --}}
         <div>
             <a href="#" data-toggle="modal" data-target="#createCategory">
                 <button class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
             </a>
         </div>
-        {{-- @endcan --}}
     </div>
 
     <ul class="column-counted">
         @foreach ($categories as $category)
             <div class="group-links d-flex flex-row align-items-center">
-                <button class="hidden-btn hidden-edit open-edit-modal" data-toggle="modal" data-target="#editCategory"
-                    data-edit-link="/intranet/categories/{{ $category->id }}"
-                    data-edit-name="{{ $category->name }}"><i class="fas fa-edit"></i></button>
-                <a href="/intranet/categories/{{ $category->id }}/delete" class="hidden-btn hidden-delete"><i
-                        class="fas fa-trash-alt"></i></a>
+                @can('update', $category)
+                    <button class="hidden-btn hidden-edit open-edit-modal" data-toggle="modal" data-target="#editCategory"
+                        data-edit-link="/intranet/categories/{{ $category->id }}"
+                        data-edit-name="{{ $category->name }}"><i class="fas fa-edit"></i></button>
+                    <a href="/intranet/categories/{{ $category->id }}/delete" class="hidden-btn hidden-delete"><i
+                            class="fas fa-trash-alt"></i></a>
+                @endcan
                 <li>{{ $category->name }}</li>
             </div>
         @endforeach

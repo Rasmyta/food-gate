@@ -9,7 +9,16 @@
             <span>{{ $dish->price }} &euro;</span>
         </div>
     </div>
-    <div class="card-footer ">
-        <a href="/cart/add/{{ $dish->id }}" class="text-muted font-bold">Add to cart</a>
-    </div>
+
+    @can('create', App\Models\Order::class)
+        <div class="card-footer ">
+            <a href="/cart/add/{{ $dish->id }}" class="text-muted font-bold">Add to cart</a>
+        </div>
+    @else
+        <div class="card-footer ">
+            <button type="button" class="text-muted font-bold" disabled title="Disabled for intranet users">Add to
+                cart</button>
+        </div>
+    @endcan
+
 </div>

@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Client;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClientPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +17,19 @@ class ClientPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return  $user->role->name == 'Administrator';
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function view(User $user, Client $client)
+    public function view(User $user, User $model)
     {
-        //
+        return  $user->role->name == 'Administrator';
     }
 
     /**
@@ -48,10 +47,10 @@ class ClientPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function update(User $user, Client $client)
+    public function update(User $user, User $model)
     {
         //
     }
@@ -60,22 +59,22 @@ class ClientPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function delete(User $user, Client $client)
+    public function delete(User $user, User $model)
     {
-        //
+        return  $user->role->name == 'Administrator';
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function restore(User $user, Client $client)
+    public function restore(User $user, User $model)
     {
         //
     }
@@ -84,10 +83,10 @@ class ClientPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function forceDelete(User $user, Client $client)
+    public function forceDelete(User $user, User $model)
     {
         //
     }

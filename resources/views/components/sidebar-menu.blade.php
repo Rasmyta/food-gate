@@ -34,40 +34,46 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link" href="/intranet/restaurants">
-            <i class="fas fa-landmark"></i>
-            <span>Restaurants</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="/intranet/orders">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Orders</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="/intranet/categories">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Categories</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="/intranet/clients">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Clients</span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="/intranet/deliverymen">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Delivery men</span>
-        </a>
-    </li>
+    @can('viewAny', App\Models\Restaurant::class)
+        <li class="nav-item">
+            <a class="nav-link" href="/intranet/restaurants">
+                <i class="fas fa-landmark"></i>
+                <span>Restaurants</span>
+            </a>
+        </li>
+    @endcan
+    @can('viewAny', App\Models\Order::class)
+        <li class="nav-item">
+            <a class="nav-link" href="/intranet/orders">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Orders</span>
+            </a>
+        </li>
+    @endcan
+    @can('viewAny', App\Models\Category::class)
+        <li class="nav-item">
+            <a class="nav-link" href="/intranet/categories">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Categories</span>
+            </a>
+        </li>
+    @endcan
+    @can('viewAny', App\Models\User::class)
+        <li class="nav-item">
+            <a class="nav-link" href="/intranet/clients">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Clients</span>
+            </a>
+        </li>
+    @endcan
+    @can('viewAny', App\Models\User::class)
+        <li class="nav-item">
+            <a class="nav-link" href="/intranet/deliverymen">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Delivery men</span>
+            </a>
+        </li>
+    @endcan
 
     <!-- Divider -->
     <hr class="sidebar-divider">

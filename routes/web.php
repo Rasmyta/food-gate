@@ -27,7 +27,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// CLIENT routes
+/**
+ * CLIENTS (accesible for all registered users)
+ */
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('main', [MainController::class, 'indexMain'])->name('main');
     Route::get('restaurants', [MainController::class, 'indexRestaurants'])->name('restaurants');
@@ -43,40 +45,49 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('invoice/{id}', [InvoiceController::class, 'show']);
 });
 
-// INTRANET routes
+/**
+ * INTRANET
+ */
 Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
 
-    // Routes for ALL intranet members
+    /**
+     * ALL INTRANET USERS
+     */
     Route::group(['middleware' => 'intranetRoles'], function () {
         Route::view('/dashboard', 'intranet.dashboard')->name('intranet');
         Route::get('orders/{restaurant}', [OrderController::class, 'indexByRestaurant']);
-        Route::resource('orders', OrderController::class);
     });
 
+    /**
+     * ONLY ADMIN ROLE
+     */
     Route::group(['middleware' => 'role:admin'], function () {
-        //Clients
         Route::get('clients/{client}/delete', [ClientController::class, 'destroy']);
+        Route::get('clients', [ClientController::class, 'index']);
         Route::resource('clients', ClientController::class);
 
-        //Deliverymen
         Route::get('deliverymen/{deliveryman}/delete', [DeliverymanController::class, 'destroy']);
         Route::resource('deliverymen', DeliverymanController::class);
     });
 
+    /**
+     * DELIVERYMAN ROLE
+     */
     Route::group(['middleware' => 'role:deliveryman'], function () {
+        Route::resource('orders', OrderController::class);
     });
 
+    /**
+     * RMANAGER ROLE
+     */
     Route::group(['middleware' => 'role:rmanager'], function () {
-        //Restaurants
         Route::get('restaurants/{restaurant}/delete', [RestaurantController::class, 'destroy']);
         Route::resource('restaurants', RestaurantController::class);
 
-        //Dishes
         Route::get('dishes/{restaurant}', [DishController::class, 'index'])->name('dishes');
         Route::get('dishes/{dish}/delete', [DishController::class, 'destroy']);
         Route::resource('dishes', DishController::class);
 
-        //Categories
         Route::get('categories/{category}/delete', [CategoryController::class, 'destroy']);
         Route::resource('categories', CategoryController::class);
     });
