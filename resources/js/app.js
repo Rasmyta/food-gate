@@ -1,3 +1,7 @@
-require('./bootstrap');
+require("./bootstrap");
 
-require('alpinejs');
+require("./custom");
+
+require("./sb-admin-2");
+
+require("alpinejs");
