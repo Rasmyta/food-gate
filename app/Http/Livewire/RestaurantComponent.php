@@ -35,7 +35,7 @@ class RestaurantComponent extends Component
             'editing.latitude' => 'required|numeric',
             'editing.longitude' => 'required|numeric',
             'editing.user_id' => 'numeric',
-            'upload' => 'image'
+            'upload' => 'image|nullable'
         ];
     }
 
@@ -85,7 +85,15 @@ class RestaurantComponent extends Component
         ]);
 
         $this->showModal = false;
+
+        $this->emit('modalSave'); // Close model using to jquery in layout
     }
+
+    public function cancel()
+    {
+        $this->showModal = false;
+    }
+
 
     public function deleteId($id)
     {

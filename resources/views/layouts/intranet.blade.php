@@ -77,6 +77,14 @@
     @livewireScripts
     @stack('scripts')
 
+    <script type="text/javascript">
+        window.livewire.on('modalSave', () => {
+            $('#showModal').modal('hide');
+            $('#showDeleteModal').modal('hide');
+        });
+
+    </script>
+
 </body>
 
 </html>

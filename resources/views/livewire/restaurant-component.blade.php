@@ -42,10 +42,10 @@
                                  class="fas fa-clipboard-list"></i></a>
                          <a href="/intranet/orders/{{ $restaurant->id }}" title="Orders" class="p-1"><i
                                  class="fas fa-cart-arrow-down"></i></a>
-                         <button wire:click="edit({{ $restaurant->id }})" class="p-1" title="Edit"><i
-                                 class="fas fa-edit"></i></button>
-                         <button wire:click="deleteId({{ $restaurant->id }})" class="p-1" title="Delete"><i
-                                 class="fas fa-trash-alt"></i></button>
+                         <a wire:click="edit({{ $restaurant->id }})" href="#" data-toggle="modal" data-target="#openModal"
+                             class="p-1" title="Edit"><i class="fas fa-edit"></i></a>
+                         <a wire:click="deleteId({{ $restaurant->id }})" href="#" class="p-1" title="Delete"><i
+                                 class="fas fa-trash-alt"></i></a>
                      </x-table.cell>
                  </x-table.row>
 
@@ -60,9 +60,9 @@
      <div class="mx-2">{{ $restaurants->links() }}</div>
 
      <!-- Create / Update Restaurant Modal -->
-     <form wire:submit.prevent="save">
-         <x-modal.dialog wire:model.defer="showModal">
-             <x-slot name="title">Edit restaurant</x-slot>
+     <form>
+         <x-modal.dialog-modal wire:ignore.self id="openModal">
+             <x-slot name="title">Restaurant</x-slot>
              <x-slot name="content">
 
                  <x-input.group label="Name" for="name" :error="$errors->first('editing.name')">
@@ -106,16 +106,18 @@
 
              </x-slot>
              <x-slot name="footer">
-                 <x-button.secondary wire:click="$set('showModal', false)">Cancel</x-button.secondary>
-                 <x-button.primary type="submit">Save</x-button.primary>
+                 <x-button.secondary wire:click.prevent="cancel()" class="close-btn" data-dismiss="modal">Cancel
+                 </x-button.secondary>
+                 <x-button.primary wire:click.prevent="save()" data-dismiss="modal">Save
+                 </x-button.primary>
              </x-slot>
 
-         </x-modal.dialog>
+         </x-modal.dialog-modal>
      </form>
 
 
      <!-- Delete Restaurant Modal -->
-     <form wire:submit.prevent="delete">
+     {{-- <form wire:submit.prevent="delete">
          <x-modal.confirmation wire:model.defer="showDeleteModal">
              <x-slot name="title">Delete Restaurant</x-slot>
 
@@ -128,6 +130,6 @@
                  <x-button.primary type="submit">Delete</x-button.primary>
              </x-slot>
          </x-modal.confirmation>
-     </form>
+     </form> --}}
 
  </div>
