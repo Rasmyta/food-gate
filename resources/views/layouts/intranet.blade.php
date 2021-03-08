@@ -16,8 +16,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/sb-admin-2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sb-admin-2.css') }}">
 
     @livewireStyles
 
@@ -75,15 +74,13 @@
     </a>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ URL::asset('jquery/jquery.min.js') }}"></script>
-    <script src="{{ URL::asset('js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="{{ URL::asset('jquery/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('jquery/jquery.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{ URL::asset('js/sb-admin-2.min.js') }}"></script>
-    <script src="{{ URL::asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/sb-admin-2.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+
 
     @stack('modals')
     @livewireScripts
