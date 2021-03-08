@@ -72,14 +72,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Bootstrap core JavaScript-->
-    {{-- <script src="{{ asset('jquery/jquery.js') }}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('js/sb-admin-2.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script> --}}
-
 
     @stack('modals')
     @livewireScripts
