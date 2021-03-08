@@ -31,7 +31,7 @@ class Category extends Model
         return DB::table('categories')
             ->join('dishes', 'categories.id', '=', 'dishes.category_id')
             ->select('categories.*')
-            ->groupBy('category_id', 'restaurant_id')
+            ->groupBy('categories.id', 'restaurant_id')
             ->having('restaurant_id', $restaurantId)
             ->get();
     }
