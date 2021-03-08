@@ -12,7 +12,7 @@
                 </button>
             </div>
             @if (Route::has('login'))
-                <div class="">
+                <div>
                     @auth
                         <a href="{{ url('main') }}" class="text-muted">Main</a>
                     @else
@@ -21,9 +21,9 @@
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 text-muted">Register</a>
                         @endif
-                @endif
-        </div>
-        @endif
+                    @endauth
+                </div>
+            @endif
         </header>
 
 
@@ -57,5 +57,5 @@
         <!-- Site footer -->
         @include('components.footer')
 
-        </div>
-    </x-guest-layout>
+    </div>
+</x-guest-layout>
