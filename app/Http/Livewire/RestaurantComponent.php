@@ -13,11 +13,10 @@ class RestaurantComponent extends Component
     use WithPagination;
     use WithFileUploads;
 
+    public $modalTitle;
     public $search = "";
     public $sortField = "name";
     public $sortDirection = 'asc';
-    public $showDeleteModal = false;
-    public $showModal = false;
     public $upload;
     public $deleteId = '';
     public Restaurant $editing;
@@ -52,10 +51,12 @@ class RestaurantComponent extends Component
     public function render()
     {
         if (Auth::user()->role->name == "Administrator") {
-            $restaurants = Restaurant::search($this->search)->orderBy($this->sortField, $this->sortDirection)
+            $restaurants = Restaurant::search($this->search)
+                ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10);
         } else {
-            $restaurants = Restaurant::where('user_id', '=', Auth::id())->search($this->search)->orderBy($this->sortField, $this->sortDirection)
+            $restaurants = Restaurant::where('user_id', '=', Auth::id())->search($this->search)
+                ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10);
         }
         return view('livewire.restaurant-component', [
@@ -65,14 +66,17 @@ class RestaurantComponent extends Component
 
     public function edit(Restaurant $restaurant)
     {
-        $this->editing = $restaurant;
-        $this->showModal = true;
+        if ($this->editing->isNot($restaurant)) $this->editing = $restaurant;
+
+        $this->modalTitle = "Edit restaurant";
+        $this->emit('modalOpen');
     }
 
     public function create()
     {
         $this->editing = $this->makeBlankRestaurant(); //cleaning modal fields
-        $this->showModal = true;
+        $this->modalTitle = "New restaurant";
+        $this->emit('modalOpen');
     }
 
     public function save()
@@ -84,27 +88,19 @@ class RestaurantComponent extends Component
             'photo_path' => $this->upload->store('/', 'diskrestaurant')
         ]);
 
-        $this->showModal = false;
-
-        $this->emit('modalSave'); // Close model using to jquery in layout
-    }
-
-    public function cancel()
-    {
-        $this->showModal = false;
+        $this->emit('modalSave'); // Close model using jquery in layout
     }
 
 
     public function deleteId($id)
     {
         $this->deleteId = $id;
-        $this->showDeleteModal = true;
     }
 
     public function delete()
     {
         Restaurant::findOrFail($this->deleteId)->delete();
-        $this->showDeleteModal = false;
+        $this->deleteId = "";
     }
 
 

@@ -7,7 +7,8 @@
          </div>
          @can('create', \App\Models\Restaurant::class)
              <div>
-                 <button wire:click="create" class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
+                 <a wire:click="create" href="#" data-toggle="modal" data-target="#openModal" class="btn btn-primary"><i
+                         class="fas fa-plus"></i> New</a>
              </div>
          @endcan
      </div>
@@ -44,8 +45,8 @@
                                  class="fas fa-cart-arrow-down"></i></a>
                          <a wire:click="edit({{ $restaurant->id }})" href="#" data-toggle="modal" data-target="#openModal"
                              class="p-1" title="Edit"><i class="fas fa-edit"></i></a>
-                         <a wire:click="deleteId({{ $restaurant->id }})" href="#" class="p-1" title="Delete"><i
-                                 class="fas fa-trash-alt"></i></a>
+                         <a wire:click="deleteId({{ $restaurant->id }})" href="#" data-toggle="modal"
+                             data-target="#openDeleteModal" class="p-1" title="Delete"><i class="fas fa-trash-alt"></i></a>
                      </x-table.cell>
                  </x-table.row>
 
@@ -61,8 +62,8 @@
 
      <!-- Create / Update Restaurant Modal -->
      <form>
-         <x-modal.dialog-modal wire:ignore.self id="openModal">
-             <x-slot name="title">Restaurant</x-slot>
+         <x-modal.dialog wire:ignore.self id="openModal">
+             <x-slot name="title">{{ $modalTitle }}</x-slot>
              <x-slot name="content">
 
                  <x-input.group label="Name" for="name" :error="$errors->first('editing.name')">
@@ -86,7 +87,6 @@
                      <x-input.group class="col-md-7" label="Email" for="email" :error="$errors->first('editing.email')">
                          <x-input.email wire:model="editing.email" name="email" />
                      </x-input.group>
-
                  </div>
 
                  <div class="form-row">
@@ -106,30 +106,30 @@
 
              </x-slot>
              <x-slot name="footer">
-                 <x-button.secondary wire:click.prevent="cancel()" class="close-btn" data-dismiss="modal">Cancel
-                 </x-button.secondary>
-                 <x-button.primary wire:click.prevent="save()" data-dismiss="modal">Save
+                 <x-button.secondary data-dismiss="modal">Cancel</x-button.secondary>
+                 <x-button.primary wire:click.prevent="save()" id="submitModal">Save
                  </x-button.primary>
              </x-slot>
 
-         </x-modal.dialog-modal>
+         </x-modal.dialog>
      </form>
 
 
      <!-- Delete Restaurant Modal -->
-     {{-- <form wire:submit.prevent="delete">
-         <x-modal.confirmation wire:model.defer="showDeleteModal">
+     <form>
+         <x-modal.confirmation wire:ignore.self id="openDeleteModal">
              <x-slot name="title">Delete Restaurant</x-slot>
-
              <x-slot name="content">
-                 <div class="py-8 text-cool-gray-700">Are you sure? This action is irreversible.</div>
+                 <div class="d-flex justify-content-between align-items-center py-4">
+                     <img src="{{ asset('storage/icons/error.svg') }}" style="max-width:100px;" class="m-3">
+                     <h4 class="m-3">Are you sure? This action is irreversible.</h4>
+                 </div>
              </x-slot>
-
              <x-slot name="footer">
-                 <x-button.secondary wire:click="$set('showDeleteModal', false)">Cancel</x-button.secondary>
-                 <x-button.primary type="submit">Delete</x-button.primary>
+                 <x-button.secondary data-dismiss="modal">Cancel</x-button.secondary>
+                 <x-button.primary wire:click.prevent="delete()" data-dismiss="modal">Delete</x-button.primary>
              </x-slot>
          </x-modal.confirmation>
-     </form> --}}
+     </form>
 
  </div>
