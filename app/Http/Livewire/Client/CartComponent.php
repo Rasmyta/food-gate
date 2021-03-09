@@ -35,11 +35,11 @@ class CartComponent extends Component
 
         //Saving the quantity of each item into pivot table 'dish_order'
         foreach ($this->cart as $item) {
-            $this->order->getDishes()->attach($item->id, ['quantity' => $item->qty]);
+            $this->order->getDishes()->attach(
+                $item->id,
+                ['quantity' => $item->qty, 'price_total' => ($item->price * $item->qty)]
+            );
         }
-
-        //Storing cart into database
-        Cart::store($this->order->id);
 
         //Cleans a cart
         Cart::destroy();
