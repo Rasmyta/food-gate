@@ -10,7 +10,6 @@ class OrderComponent extends Component
     public $orders;
     public $restaurant;
     public $state = 'received';
-    public $showEditModal = false;
     public Order $editing;
 
     protected $listeners = ['changeState'];
@@ -27,6 +26,7 @@ class OrderComponent extends Component
     public function mount($restaurant = "")
     {
         $this->restaurant = $restaurant;
+        $this->editing = Order::make();
     }
 
     public function render()
@@ -37,8 +37,10 @@ class OrderComponent extends Component
         } else {
             if (auth()->user()->role->name === 'Deliveryman') {
                 $this->orders = Order::where('state', 'prepared')
-                    ->where('deliveryman_id', auth()->user()->id)
-                    ->orWhere('deliveryman_id', null)
+                    ->where(function ($query) {
+                        $query->where('deliveryman_id', auth()->user()->id)
+                            ->orWhere('deliveryman_id', null);
+                    })
                     ->orderBy('created_at')->get();
             } else {
                 $this->orders = Order::orderBy('created_at')->get();
@@ -56,21 +58,22 @@ class OrderComponent extends Component
 
     public function edit(Order $order)
     {
-        $this->editing = $order;
-        $this->showEditModal = true;
+        if ($this->editing->isNot($order)) $this->editing = $order;
+        $this->emit('modalOpen');
     }
 
     public function deliver(Order $order, $userId)
     {
         $this->editing = $order;
         $this->editing->deliveryman_id = $userId;
-        $this->save();
+        $this->validate();
+        $this->editing->save();
     }
 
     public function save()
     {
         $this->validate();
         $this->editing->save();
-        $this->showEditModal = false;
+        $this->emit('modalSave'); // Close modal using jquery in layout
     }
 }
