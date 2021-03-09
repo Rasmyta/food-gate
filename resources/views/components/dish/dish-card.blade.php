@@ -10,15 +10,13 @@
         </div>
     </div>
 
-    @can('create', App\Models\Order::class)
-        <div class="card-footer ">
-            <a href="/cart/add/{{ $dish->id }}" class="text-muted font-bold">Add to cart</a>
-        </div>
-    @else
-        <div class="card-footer ">
-            <button type="button" class="text-muted font-bold" disabled title="Disabled for intranet users">Add to
-                cart</button>
-        </div>
-    @endcan
+    <div class="card-footer bg-white">
+        @can('create', App\Models\Order::class)
+            <a href="/cart/add/{{ $dish->id }}" class="btn p-0 text-success font-bold"><b>Add to cart</b></a>
+        @else
+            <a href="#" class="btn p-0 text-success font-bold" disabled title="Disabled for intranet users">
+                <b>Add to cart</b></a>
+        @endcan
+    </div>
 
 </div>

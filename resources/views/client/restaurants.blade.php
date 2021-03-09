@@ -22,6 +22,8 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="mx-2">{{ $restaurants->links() }}</div>
     </div>
 
 </x-app-layout>

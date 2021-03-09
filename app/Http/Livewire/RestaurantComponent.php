@@ -21,6 +21,7 @@ class RestaurantComponent extends Component
     public $deleteId = '';
     public Restaurant $editing;
 
+    protected $paginationTheme = 'bootstrap';
     protected $queryString = ['sortField', 'sortDirection'];
 
     public function rules()
@@ -88,7 +89,7 @@ class RestaurantComponent extends Component
             'photo_path' => $this->upload->store('/', 'diskrestaurant')
         ]);
 
-        $this->emit('modalSave'); // Close model using jquery in layout
+        $this->emit('modalSave'); // Close modal using jquery in layout
     }
 
 
@@ -101,6 +102,7 @@ class RestaurantComponent extends Component
     {
         Restaurant::findOrFail($this->deleteId)->delete();
         $this->deleteId = "";
+        $this->editing = $this->makeBlankRestaurant(); //refreshing
     }
 
 

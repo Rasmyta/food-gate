@@ -1,9 +1,4 @@
 <x-intranet-layout>
-    {{-- <x-slot name="header">
-        <h1 class="h3 mb-0 text-gray-800">
-            {{ $restaurant->name }}
-        </h1>
-    </x-slot> --}}
 
     <div class="row">
 
@@ -47,10 +42,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="form-group">
-                        <a class="btn btn-danger" href="/intranet/restaurants/{{ $restaurant->id }}/delete">Delete</a>
-                        <a class="btn btn-warning" href="/intranet/restaurants/{{ $restaurant->id }}/edit">Edit</a>
-                    </div>
                 </div>
             </div>
         </div>

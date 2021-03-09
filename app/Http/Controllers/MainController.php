@@ -29,7 +29,7 @@ class MainController extends Controller
      */
     public function indexRestaurants()
     {
-        return view('client.restaurants', ['restaurants' => Restaurant::all()]);
+        return view('client.restaurants', ['restaurants' => Restaurant::paginate(30)]);
     }
 
     /**

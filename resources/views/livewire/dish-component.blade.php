@@ -6,7 +6,8 @@
         </div>
         @can('create', \App\Models\Dish::class)
             <div>
-                <button wire:click="create" class="btn btn-primary"><i class="fas fa-plus"></i> New</button>
+                <a wire:click="create" href="#" data-toggle="modal" data-target="#openModal" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> New</a>
             </div>
         @endcan
     </div>
@@ -37,10 +38,10 @@
                     <x-table.cell>{{ $dish->price }} €</x-table.cell>
                     <x-table.cell>{{ $dish->description }}</x-table.cell>
                     <x-table.cell>
-                        <button wire:click="edit({{ $dish->id }})" class="p-1" title="Edit"><i
-                                class="fas fa-edit"></i></button>
-                        <button wire:click="deleteId({{ $dish->id }})" class="p-1" title="Delete"><i
-                                class="fas fa-trash-alt"></i></button>
+                        <a wire:click="edit({{ $dish->id }})" href="#" data-toggle="modal" data-target="#openModal"
+                            class="p-1" title="Edit"><i class="fas fa-edit"></i></a>
+                        <a wire:click="deleteId({{ $dish->id }})" href="#" data-toggle="modal"
+                            data-target="#openDeleteModal" class="p-1" title="Delete"><i class="fas fa-trash-alt"></i></a>
                     </x-table.cell>
                 </x-table.row>
             @empty
@@ -54,10 +55,9 @@
     <div class="mx-2">{{ $dishes->links() }}</div>
 
     <!-- Create / Update Dish Modal -->
-    <form wire:submit.prevent="save">
-        <x-modal.dialog wire:model.defer="showModal">
-
-            <x-slot name="title">Dish</x-slot>
+    <form>
+        <x-modal.dialog wire:ignore.self id="openModal">
+            <x-slot name="title">{{ $modalTitle }}</x-slot>
             <x-slot name="content">
                 <x-input.group label="Name" for="name" :error="$errors->first('editing.name')">
                     <x-input.text wire:model="editing.name" name="name" />
@@ -75,7 +75,7 @@
                             @forelse ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @empty
-                                <option value="">No matching result was found.</option>
+                                <option value="">No matching results were found.</option>
                             @endforelse
                         </x-input.select>
                     </x-input.group>
@@ -85,9 +85,9 @@
                     <x-input.text wire:model="editing.price" name="price" />
                 </x-input.group>
 
-                {{-- <x-input.group label="Description" for="description" :error="$errors->first('editing.description')">
+                <x-input.group label="Description" for="description" :error="$errors->first('editing.description')">
                     <x-input.textarea wire:model="editing.description" name="description" />
-                </x-input.group> --}}
+                </x-input.group>
 
                 <x-input.group label="Photo" for="photo_path" :error="$errors->first('upload')">
                     <x-input.file name="photo_path" wire:model="upload" />
@@ -95,25 +95,26 @@
 
             </x-slot>
             <x-slot name="footer">
-                <x-button.secondary wire:click="$set('showModal', false)">Cancel</x-button.secondary>
-                <x-button.primary type="submit">Save</x-button.primary>
+                <x-button.secondary data-dismiss="modal">Cancel</x-button.secondary>
+                <x-button.primary wire:click.prevent="save()" id="submitModal">Save</x-button.primary>
             </x-slot>
 
         </x-modal.dialog>
     </form>
 
     <!-- Delete Restaurant Modal -->
-    <form wire:submit.prevent="delete">
-        <x-modal.confirmation wire:model.defer="showDeleteModal">
+    <form>
+        <x-modal.confirmation wire:ignore.self id="openDeleteModal">
             <x-slot name="title">Delete Dish</x-slot>
-
             <x-slot name="content">
-                <div class="py-8 text-cool-gray-700">Are you sure? This action is irreversible.</div>
+                <div class="d-flex justify-content-between align-items-center py-4">
+                    <img src="{{ asset('storage/icons/error.svg') }}" style="max-width:100px;" class="m-3">
+                    <h4 class="m-3">Are you sure? This action is irreversible.</h4>
+                </div>
             </x-slot>
-
             <x-slot name="footer">
-                <x-button.secondary wire:click="$set('showDeleteModal', false)">Cancel</x-button.secondary>
-                <x-button.primary type="submit">Delete</x-button.primary>
+                <x-button.secondary data-dismiss="modal">Cancel</x-button.secondary>
+                <x-button.primary wire:click.prevent="delete()" data-dismiss="modal">Delete</x-button.primary>
             </x-slot>
         </x-modal.confirmation>
     </form>

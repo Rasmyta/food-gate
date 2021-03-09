@@ -107,8 +107,7 @@
              </x-slot>
              <x-slot name="footer">
                  <x-button.secondary data-dismiss="modal">Cancel</x-button.secondary>
-                 <x-button.primary wire:click.prevent="save()" id="submitModal">Save
-                 </x-button.primary>
+                 <x-button.primary wire:click.prevent="save()" id="submitModal">Save</x-button.primary>
              </x-slot>
 
          </x-modal.dialog>
@@ -131,5 +130,6 @@
              </x-slot>
          </x-modal.confirmation>
      </form>
+
 
  </div>

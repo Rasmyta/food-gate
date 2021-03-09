@@ -26,7 +26,14 @@
                     <div class="col-md-9">
                         <div class="card-body">
                             <p class="card-text">{{ $dish->description }}</p>
-                            <a href="/cart/add/{{ $dish->id }}" class="card-text">Add to cart</a>
+                            @can('create', App\Models\Order::class)
+                                <a href="/cart/add/{{ $dish->id }}" class="btn p-0 text-success font-bold"><b>Add to
+                                        cart</b></a>
+                            @else
+                                <a href="#" class="btn p-0 text-success font-bold" disabled
+                                    title="Disabled for intranet users">
+                                    <b>Add to cart</b></a>
+                            @endcan
                         </div>
                     </div>
                 </div>

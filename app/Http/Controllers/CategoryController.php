@@ -15,8 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view($this->prefix . 'index', ['categories' => $categories]);
+        return view($this->prefix . 'index');
     }
 
     /**
@@ -37,15 +36,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:categories'
-        ]);
-
-        $category = new Category;
-        $category->name = $request->name;
-        $category->save();
-
-        return redirect()->action([CategoryController::class, 'index']);
+        //
     }
 
     /**
@@ -79,15 +70,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $this->authorize('update', $category);
-        $request->validate([
-            'name' => 'required|unique:categories'
-        ]);
-
-        $category->name = $request->name;
-        $category->save();
-
-        return redirect()->action([CategoryController::class, 'index']);
+        //
     }
 
     /**
@@ -98,8 +81,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $this->authorize('delete', $category);
-        $category->delete();
-        return redirect()->action([CategoryController::class, 'index']);
+        //
     }
 }
