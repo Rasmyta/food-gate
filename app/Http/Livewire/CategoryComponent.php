@@ -26,7 +26,7 @@ class CategoryComponent extends Component
 
     public function makeBlankCategory()
     {
-        return  $this->editing = Category::make(['name' => ""]);
+        return  $this->editing = Category::make();
     }
 
     public function render()
@@ -37,27 +37,10 @@ class CategoryComponent extends Component
 
     public function edit(Category $category)
     {
-
         if ($this->editing->isNot($category)) $this->editing = $category;
         $this->modalTitle = "Edit category";
         $this->emit('modalOpen');
     }
-
-    public function update()
-    {
-        $validatedDate = $this->validate([
-            'editing.name' => 'required'
-        ]);
-
-        if ($this->editing->id) {
-            $cat = Category::find($this->editing->id);
-            $cat->update([
-                'name' => $this->editing->name
-            ]);
-            $this->emit('modalSave'); // Close modal using jquery in layout
-        }
-    }
-
 
     public function create()
     {
@@ -70,7 +53,6 @@ class CategoryComponent extends Component
     {
         $this->validate();
         $this->editing->save();
-
         $this->emit('modalSave'); // Close modal using jquery in layout
     }
 

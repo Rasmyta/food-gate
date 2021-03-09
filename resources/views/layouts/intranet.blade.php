@@ -81,7 +81,6 @@
         window.livewire.on('modalSave', () => {
             $('.submitModal').attr('data-dismiss', 'modal');
             $('#openModal').modal('hide');
-            $('#openEditModal').modal('hide');
         });
 
         window.livewire.on('modalOpen', () => {

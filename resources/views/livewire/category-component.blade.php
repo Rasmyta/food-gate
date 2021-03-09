@@ -13,7 +13,7 @@
         @foreach ($categories as $category)
             <div class="group-links d-flex flex-row align-items-center">
                 @can('update', $category)
-                    <a wire:click="edit({{ $category->id }})" href="#" data-toggle="modal" data-target="#openEditModal"
+                    <a wire:click="edit({{ $category->id }})" href="#" data-toggle="modal" data-target="#openModal"
                         class="hidden-btn hidden-edit btn open-edit-modal"><i class="fas fa-edit"></i>
                     </a>
                     <a wire:click="deleteId({{ $category->id }})" href="#" data-toggle="modal"
@@ -37,21 +37,6 @@
             <x-slot name="footer">
                 <x-button.secondary data-dismiss="modal">Cancel</x-button.secondary>
                 <x-button.primary wire:click.prevent="save()" class="submitModal">Save</x-button.primary>
-            </x-slot>
-        </x-modal.dialog>
-    </form>
-
-    <form>
-        <x-modal.dialog wire:ignore.self id="openEditModal">
-            <x-slot name="title">{{ $modalTitle }}</x-slot>
-            <x-slot name="content">
-                <x-input.group label="Name" for="name" :error="$errors->first('editing.name')">
-                    <x-input.text wire:model="editing.name" name="name" />
-                </x-input.group>
-            </x-slot>
-            <x-slot name="footer">
-                <x-button.secondary data-dismiss="modal">Cancel</x-button.secondary>
-                <x-button.primary wire:click.prevent="update()" class="submitModal">Save</x-button.primary>
             </x-slot>
         </x-modal.dialog>
     </form>
