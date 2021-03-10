@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Livewire\RestaurantComponent;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use App\Models\Dish;
@@ -29,7 +28,7 @@ class MainController extends Controller
      */
     public function indexRestaurants()
     {
-        return view('client.restaurants', ['restaurants' => Restaurant::paginate(30)]);
+        return view('client.restaurants');
     }
 
     /**
