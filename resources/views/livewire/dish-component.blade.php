@@ -29,7 +29,7 @@
                 <x-table.row>
                     <x-table.cell>
                         @isset($dish->photo_path)
-                            <img src="{{ Storage::disk('diskdishes')->url($dish->photo_path) }}" alt="{{ $dish->name }}"
+                            <img src="{{ Storage::disk('s3')->url($dish->photo_path) }}" alt="{{ $dish->name }}"
                                 style="width: 100px" />
                         @endisset
                     </x-table.cell>

@@ -19,7 +19,7 @@
                 <div class="row no-gutters">
                     <div class="col-md-3">
                         @isset($dish->photo_path)
-                            <img src="{{ Storage::disk('diskdishes')->url($dish->photo_path) }}" alt="{{ $dish->name }}"
+                            <img src="{{ Storage::disk('s3')->url($dish->photo_path) }}" alt="{{ $dish->name }}"
                                 class="card-img-top h-45" />
                         @endisset
                     </div>

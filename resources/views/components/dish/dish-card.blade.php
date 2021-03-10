@@ -1,6 +1,5 @@
 <div class="card">
-    <img src="{{ Storage::disk('diskdishes')->url($dish->photo_path) }}" class="card-img-top"
-        alt="{{ $dish->name }}">
+    <img src="{{ Storage::disk('s3')->url($dish->photo_path) }}" class="card-img-top" alt="{{ $dish->name }}">
     <div class="card-body">
         <div class="d-flex">
             <a href="/dish/{{ $dish->id }}">

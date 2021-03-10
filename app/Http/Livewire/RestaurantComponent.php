@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantComponent extends Component
 {
@@ -95,8 +96,9 @@ class RestaurantComponent extends Component
         $this->validate($this->rules(), $this->messages());
         $this->editing->save();
 
+        $path =  Storage::disk('s3')->put('restaurants', $this->upload);
         $this->upload && $this->editing->update([
-            'photo_path' => $this->upload->store('/', 'diskrestaurant')
+            'photo_path' => $path
         ]);
 
         $this->emit('modalSave'); // Close modal using jquery in layout

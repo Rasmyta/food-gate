@@ -7,6 +7,9 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\Dish;
+use Illuminate\Http\File;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class DishComponent extends Component
 {
@@ -34,7 +37,7 @@ class DishComponent extends Component
             'editing.restaurant_id' => 'required',
             'editing.price' => 'required|numeric',
             'editing.description' => 'string|nullable',
-            'upload' => 'nullable|image'
+            'upload' => 'nullable'
         ];
     }
 
@@ -98,8 +101,9 @@ class DishComponent extends Component
         $this->validate($this->rules(), $this->messages());
         $this->editing->save();
 
+        $path =  Storage::disk('s3')->put('dishes', $this->upload);
         $this->upload && $this->editing->update([
-            'photo_path' => $this->upload->store('/', 'diskdishes')
+            'photo_path' => $path
         ]);
 
         $this->emit('modalSave'); // Close model using jquery in layout
