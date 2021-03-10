@@ -11,7 +11,7 @@
                 <div class="card">
 
                     <img src=" @if ($restaurant->photo_path) {{ Storage::disk('s3')->url($restaurant->photo_path) }}
-                @else {{ Storage::disk('s3')->url('default.png') }} @endif"
+                @else {{ Storage::disk('s3')->url('restaurants/default.png') }} @endif"
                     alt="{{ $restaurant->name }}" class="card-img-top" style="height: 14rem;" />
 
                     <div class="card-body">
