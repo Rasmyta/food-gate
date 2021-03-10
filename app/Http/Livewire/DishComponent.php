@@ -101,9 +101,8 @@ class DishComponent extends Component
         $this->validate($this->rules(), $this->messages());
         $this->editing->save();
 
-        $path =  Storage::disk('s3')->put('dishes', $this->upload);
         $this->upload && $this->editing->update([
-            'photo_path' => $path
+            'photo_path' => Storage::disk('s3')->put('dishes', $this->upload)
         ]);
 
         $this->emit('modalSave'); // Close model using jquery in layout

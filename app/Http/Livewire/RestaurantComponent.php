@@ -96,9 +96,8 @@ class RestaurantComponent extends Component
         $this->validate($this->rules(), $this->messages());
         $this->editing->save();
 
-        $path =  Storage::disk('s3')->put('restaurants', $this->upload);
         $this->upload && $this->editing->update([
-            'photo_path' => $path
+            'photo_path' => Storage::disk('s3')->put('restaurants', $this->upload)
         ]);
 
         $this->emit('modalSave'); // Close modal using jquery in layout
