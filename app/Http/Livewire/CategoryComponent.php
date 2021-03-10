@@ -19,6 +19,14 @@ class CategoryComponent extends Component
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'required' => 'The :attribute field is required.',
+            'unique' => 'The :attribute has already been taken.',
+        ];
+    }
+
     public function mount()
     {
         $this->editing = $this->makeBlankCategory();
@@ -51,7 +59,7 @@ class CategoryComponent extends Component
 
     public function save()
     {
-        $this->validate();
+        $this->validate($this->rules(), $this->messages());
         $this->editing->save();
         $this->emit('modalSave'); // Close modal using jquery in layout
     }

@@ -25,6 +25,15 @@ class OrderDetail extends Component
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'required' => 'The :attribute field is required.',
+            'in' => 'The selected :attribute is invalid.',
+            'integer' => 'The :attribute must be an integer.'
+        ];
+    }
+
     public function mount(Order $order = null)
     {
         $this->order = $order;
@@ -49,13 +58,13 @@ class OrderDetail extends Component
     {
         $this->editing = $orderObj;
         $this->editing->deliveryman_id = $userId;
-        $this->validate();
+        $this->validate($this->rules(), $this->messages());
         $this->editing->save();
     }
 
     public function save()
     {
-        $this->validate();
+        $this->validate($this->rules(), $this->messages());
         $this->editing->save();
         $this->emit('modalSave'); // Close modal using jquery in layout
     }

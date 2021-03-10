@@ -38,6 +38,15 @@ class DishComponent extends Component
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'required' => 'The :attribute field is required.',
+            'numeric' => 'The :attribute must be a number.',
+            'string' => 'The :attribute must be a string.',
+            'image' => 'The :attribute must be an image.',
+        ];
+    }
 
     public function mount($restaurant)
     {
@@ -86,7 +95,7 @@ class DishComponent extends Component
 
     public function save()
     {
-        $this->validate();
+        $this->validate($this->rules(), $this->messages());
         $this->editing->save();
 
         $this->upload && $this->editing->update([

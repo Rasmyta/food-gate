@@ -39,6 +39,16 @@ class RestaurantComponent extends Component
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'required' => 'The :attribute field is required.',
+            'email' => 'The :attribute must be a valid email address.',
+            'numeric' => 'The :attribute must be a number.',
+            'image' => 'The :attribute must be an image.',
+        ];
+    }
+
     public function mount()
     {
         $this->editing = $this->makeBlankRestaurant();
@@ -82,7 +92,7 @@ class RestaurantComponent extends Component
 
     public function save()
     {
-        $this->validate();
+        $this->validate($this->rules(), $this->messages());
         $this->editing->save();
 
         $this->upload && $this->editing->update([
