@@ -26,7 +26,6 @@ class Dish extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where('name', 'like', '%' . $search . '%');
-        // ->orWhere('category', 'like', '%' . $search . '%');
     }
 
     public function getRestaurant()
@@ -41,6 +40,7 @@ class Dish extends Model
 
     public function getOrders()
     {
-        return $this->belongsToMany(Order::class, 'dish_order');
+        return $this->belongsToMany(Order::class, 'dish_order', 'dish_id', 'order_id')
+            ->withPivot('quantity', 'price_total');
     }
 }

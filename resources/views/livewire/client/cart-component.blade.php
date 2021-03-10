@@ -35,7 +35,7 @@
                                 <td><a href="/dish/{{ $item->id }}">{{ $item->name }}</a></td>
                                 <td>{{ $item->price }} &euro;</td>
                                 <td>{{ $item->qty }}</td>
-                                <td>{{ $item->price * $item->qty }} &euro;</td>
+                                <td>{{ number_format($item->price * $item->qty, 2) }} &euro;</td>
                                 <td>
                                     <button wire:click="delete({{ $item->id }})" type="button"
                                         class="btn btn-link text-danger">x</button>

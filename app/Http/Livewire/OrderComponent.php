@@ -4,14 +4,17 @@ namespace App\Http\Livewire;
 
 use App\Models\Order;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class OrderComponent extends Component
 {
-    public $orders;
+    use WithPagination;
+
     public $restaurant;
     public $state = 'received';
     public Order $editing;
 
+    protected $paginationTheme = 'bootstrap';
     protected $listeners = ['changeState'];
 
     public function rules()
@@ -31,23 +34,23 @@ class OrderComponent extends Component
 
     public function render()
     {
-        // add pagination if it is possible
         if (!empty($this->restaurant)) {
-            $this->orders = $this->restaurant->getOrders->where('state', $this->state)->sortBy('created_at');
+            $orders = Order::where('restaurant_id', $this->restaurant->id)
+                ->where('state', $this->state)->orderBy('created_at')->paginate(5);
         } else {
             if (auth()->user()->role->name === 'Deliveryman') {
-                $this->orders = Order::where('state', 'prepared')
+                $orders = Order::where('state', 'prepared')
                     ->where(function ($query) {
                         $query->where('deliveryman_id', auth()->user()->id)
                             ->orWhere('deliveryman_id', null);
                     })
-                    ->orderBy('created_at')->get();
+                    ->orderBy('created_at')->paginate(5);
             } else {
-                $this->orders = Order::orderBy('created_at')->get();
+                $orders = Order::orderBy('created_at')->paginate(5);
             }
         }
 
-        return view('livewire.order-component');
+        return view('livewire.order-component', ['orders' => $orders]);
     }
 
     // Method emitted from parent component to filter by states

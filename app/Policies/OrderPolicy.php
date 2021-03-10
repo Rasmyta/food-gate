@@ -19,7 +19,7 @@ class OrderPolicy
      */
     public function viewAny(User $user)
     {
-        return  $user->role->name == 'Deliveryman';
+        return  $user->role->name == 'Administrator' ||   $user->role->name == 'Deliveryman';
     }
 
     /**

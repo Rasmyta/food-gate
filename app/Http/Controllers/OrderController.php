@@ -60,7 +60,10 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        // TO FINISH
+
+        // $this->authorize('view', $order);
+        return view($this->prefix . 'show', ['order' => $order]);
     }
 
     /**

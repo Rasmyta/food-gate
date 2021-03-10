@@ -29,7 +29,7 @@ class Order extends Model
 
     public function getRestaurant()
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Restaurant::class, 'restaurant_id');
     }
 
     public function getDeliveryman()
@@ -39,7 +39,8 @@ class Order extends Model
 
     public function getDishes()
     {
-        return $this->belongsToMany(Dish::class, 'dish_order');
+        return $this->belongsToMany(Dish::class, 'dish_order', 'order_id', 'dish_id')
+            ->withPivot('quantity', 'price_total');
     }
 
     public function getReceivedDishes()

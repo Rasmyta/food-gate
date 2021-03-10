@@ -13,7 +13,8 @@
         <x-slot name="body">
             @forelse ($orders as $order)
                 <x-table.row>
-                    <x-table.cell>{{ $order->id }}</x-table.cell>
+                    <x-table.cell><a href="/intranet/orders/detail/{{ $order->id }}">{{ $order->id }}</a>
+                    </x-table.cell>
                     <x-table.cell>{{ $order->getClient->name }}</x-table.cell>
                     <x-table.cell>{{ $order->created_at }}</x-table.cell>
                     <x-table.cell>{{ $order->updated_at }}</x-table.cell>
@@ -48,7 +49,7 @@
         </x-slot>
     </x-table.table>
 
-    {{-- <div class="mx-2">{{ $orders->links() }}</div> --}}
+    <div class="mx-2">{{ $orders->links() }}</div>
 
     <!-- Update Order Modal -->
     <form>

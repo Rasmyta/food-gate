@@ -30,7 +30,8 @@ class RestaurantPolicy
      */
     public function view(User $user, Restaurant $restaurant)
     {
-        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator';
+        return $user->id === $restaurant->user_id || $user->role->name == 'Administrator'
+            || $user->role->name == 'Deliveryman';
     }
 
     /**

@@ -56,6 +56,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
     Route::group(['middleware' => 'intranetRoles'], function () {
         Route::view('/dashboard', 'intranet.dashboard')->name('intranet');
         Route::get('orders/{restaurant}', [OrderController::class, 'indexByRestaurant']);
+        Route::get('orders/detail/{order}', [OrderController::class, 'show']);
+        Route::resource('restaurants', RestaurantController::class);
     });
 
     /**
@@ -82,8 +84,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'intranet'], function () {
      */
     Route::group(['middleware' => 'role:rmanager'], function () {
         Route::get('restaurants/{restaurant}/delete', [RestaurantController::class, 'destroy']);
-        Route::resource('restaurants', RestaurantController::class);
-
         Route::get('dishes/{restaurant}', [DishController::class, 'index'])->name('dishes');
         Route::get('dishes/{dish}/delete', [DishController::class, 'destroy']);
         Route::resource('dishes', DishController::class);
