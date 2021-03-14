@@ -41,6 +41,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     /**
      * Dishes
      */
+    Route::get('dishes', function () {
+        return new DishResource(Dish::all());
+    });
     Route::get('dishes/{id}', function ($id) {
         return new DishResource(Dish::findOrFail($id));
     });
