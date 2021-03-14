@@ -24,6 +24,7 @@ class RestaurantResource extends JsonResource
             'phone' => $this->phone,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'photo_path' => $this->photo_path,
             'dishes' => DishResource::collection($this->getDishes),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
